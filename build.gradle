@@ -7,7 +7,8 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-	}
+        classpath 'mysql:mysql-connector-java:6.0.6'
+    }
 }
 
 apply plugin: 'java'
@@ -27,5 +28,7 @@ repositories {
 dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	compile "org.projectlombok:lombok:1.16.16"
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'mysql:mysql-connector-java:6.0.6'
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 }

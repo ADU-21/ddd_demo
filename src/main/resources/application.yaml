@@ -2,9 +2,17 @@ spring:
   application:
     name: "ddd demo"
     description: "This is demo for ddd workshop"
+  jpa:
+    hibernate:
+      ddl-auto: create
+  datasource:
+    url: jdbc:mysql://localhost:3306/mydb
+    username: root
+    password: 122333
+    driver-class-name: com.mysql.jdbc.Driver
 
 server:
-  prot: 8080
+  port: 8000
 
 api:
   version: v1
