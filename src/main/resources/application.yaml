@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: "ddd demo"
+    description: "This is demo for ddd workshop"
+
+server:
+  prot: 8080
+
+api:
+  version: v1
