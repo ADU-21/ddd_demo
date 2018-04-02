@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<script>
+    function postRegisterInfo(username, email){
+        var url = 'http://localhost:8000/user/register';
+        var data = {username: username, email: email};
+
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: new Headers({
+            'Content-Type': 'application/json',
+          })
+        }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => console.log('Success:', response));
+    }
+</script>
+<body>
+    <h1>Register</h1>
+    <label for="username">username:</label>
+    <input type="text" name="username" id="username"/>
+    <label for="email">email:</label>
+    <input type="text" name="email" id="email"/><br/>
+    <input type="submit" value="submit" onclick='postRegisterInfo(username.value, email.value)'>
+</body>
+</html>
