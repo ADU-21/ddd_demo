@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<script>
+    function setPassword(password){
+        var url = 'http://localhost:8000/user/password';
+        var urlParams = new URLSearchParams(window.location.search);
+        var data = {password: password, token: urlParams.get("token")};
+
+        fetch(url, {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: new Headers({
+            'Content-Type': 'application/json',
+          })
+        }).then(res => res.json())
+        .catch(error => console.error('Error:', error))
+        .then(response => (window.location.replace("http://localhost/login")));
+    }
+</script>
+<body>
+    <h1>Set your password</h1>
+    <label for="email">password:</label>
+    <input type="password" name="password" id="password"/><br/>
+    <input type="submit" value="submit" onclick='setPassword(password.value)'>
+</body>
+</html>

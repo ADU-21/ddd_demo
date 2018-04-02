@@ -17,7 +17,7 @@
           })
         }).then(res => res.json())
         .catch(error => console.error('Error:', error))
-        .then(response => (response ? window.location.replace("http://localhost:8080/login/"):alert("Account or Email already exsit")));
+        .then(response => (response.success ? window.location.replace("http://localhost/password?token="+response.token):alert("Account or Email already exsit")));
     }
 </script>
 <body>

@@ -22,4 +22,9 @@ public class UserServiceImp implements UserService{
         userRepository.save(user);
         return true;
     }
+
+    @Override
+    public User findUserByToken(String token) {
+        return userRepository.findByToken(token).get(0);
+    }
 }

@@ -7,4 +7,6 @@ public interface UserService {
     boolean userExist(User user);
 
     boolean saveUser(User user);
+
+    User findUserByToken(String token);
 }

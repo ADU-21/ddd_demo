@@ -22,12 +22,13 @@ public class User {
     private String userName;
     private String passWord;
     private String email;
+    private String token;
 
     @Override
     public String toString() {
         return String.format(
-                "Customer[id=%d, userName='%s', passWord='%s', email='%s']",
-                id, userName, passWord, email
+                "Customer[id=%d, userName='%s', email='%s']",
+                id, userName, email
         );
     }
 }

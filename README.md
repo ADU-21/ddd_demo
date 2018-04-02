@@ -6,7 +6,7 @@ docker run --name mysql -p 3306:3306 -v /your/local/path/ddd/db/:/var/lib/mysql 
 ```
 - Prepare Nginx: 
 ```
-docker run --name nginx -d -p 8080:80 -v /your/local/path/ddd/nginx/:/etc/nginx/  daocloud.io/nginx
+docker run --name nginx -d -p 80:80 -v /your/local/path/ddd/nginx/:/etc/nginx/  daocloud.io/nginx
 ```
 - Prepare API: 
 ```
