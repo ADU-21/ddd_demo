@@ -38,9 +38,25 @@ public class UserController {
     @CrossOrigin
     @RequestMapping(value = "/password", method = RequestMethod.POST)
     public boolean setPassword(@RequestBody Map<String, String> requestBody) {
-        User user = userServiceImp.findUserByToken(requestBody.get("token"));
-        user.setPassWord(requestBody.get("password"));
-        userServiceImp.saveUser(user);
-        return true;
+        try {
+            User user = userServiceImp.findUserByToken(requestBody.get("token"));
+            user.setPassWord(requestBody.get("password"));
+            userServiceImp.saveUser(user);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
     }
+
+    @CrossOrigin
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public boolean login(@RequestBody Map<String, String> requestBody){
+        if(!userServiceImp.userNameExist(requestBody.get("username"))){
+            return false;
+        }
+        User user = userServiceImp.findUserByName(requestBody.get("username"));
+        return userServiceImp.verifyPassword(user, requestBody.get("password"));
+    }
+
 }

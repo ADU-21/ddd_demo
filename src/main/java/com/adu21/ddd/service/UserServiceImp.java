@@ -27,4 +27,23 @@ public class UserServiceImp implements UserService{
     public User findUserByToken(String token) {
         return userRepository.findByToken(token).get(0);
     }
+
+    @Override
+    public User findUserByName(String userName) {
+        return userRepository.findByUserName(userName).get(0);
+    }
+
+    @Override
+    public boolean verifyPassword(User user, String password) {
+        user = this.findUserByName(user.getUserName());
+        if(user == null){
+            return false;
+        }
+        return user.getPassWord().equals(password);
+    }
+
+    @Override
+    public boolean userNameExist(String username) {
+        return userRepository.findByUserName(username).size() != 0;
+    }
 }

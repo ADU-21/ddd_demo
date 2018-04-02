@@ -9,4 +9,10 @@ public interface UserService {
     boolean saveUser(User user);
 
     User findUserByToken(String token);
+
+    User findUserByName(String userName);
+
+    boolean verifyPassword(User user, String password);
+
+    boolean userNameExist(String username);
 }

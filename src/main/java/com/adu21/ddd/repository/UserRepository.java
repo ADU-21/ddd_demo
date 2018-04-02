@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    List<User> findByUserName(String username);
+    List<User> findByUserName(String userName);
     List<User> findByEmail(String email);
     List<User> findByToken(String token);
 }

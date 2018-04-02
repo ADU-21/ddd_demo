@@ -18,7 +18,7 @@
           })
         }).then(res => res.json())
         .catch(error => console.error('Error:', error))
-        .then(response => (window.location.replace("http://localhost/login")));
+        .then(response => (response ? window.location.replace("http://localhost/login") : alert("Set password failed!")));
     }
 </script>
 <body>
