@@ -27,3 +27,4 @@ nbdist/
 
 # Project config
 *.docx
+db/
