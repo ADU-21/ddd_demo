@@ -1,7 +1,9 @@
 package com.adu21.ddd.domain;
 
-import lombok.*;
-import org.hibernate.validator.constraints.UniqueElements;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -15,9 +17,17 @@ import javax.persistence.Id;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String userName;
     private String passWord;
     private String email;
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Customer[id=%d, userName='%s', passWord='%s', email='%s']",
+                id, userName, passWord, email
+        );
+    }
 }
