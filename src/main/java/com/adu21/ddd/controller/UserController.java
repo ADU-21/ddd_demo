@@ -1,6 +1,7 @@
 package com.adu21.ddd.controller;
 
-import com.adu21.ddd.service.UserService;
+import com.adu21.ddd.domain.User;
+import com.adu21.ddd.service.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +12,14 @@ import java.util.Map;
 public class UserController {
 
     @Autowired
-    private UserService userService;
+    private UserServiceImp userServiceImp;
 
     @CrossOrigin
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public boolean register(@RequestBody Map<String, String> requestBody) {
-        return (!userService.userExsit(requestBody.get("username"), requestBody.get("email")) &&
-                userService.saveUser(requestBody.get("username"), requestBody.get("email")));
+        User user = new User();
+        user.setEmail(requestBody.get("email"));
+        user.setUserName(requestBody.get("username"));
+        return (!userServiceImp.userExist(user) && userServiceImp.saveUser(user));
     }
 }
