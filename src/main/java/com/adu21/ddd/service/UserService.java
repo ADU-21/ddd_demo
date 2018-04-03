@@ -2,6 +2,7 @@ package com.adu21.ddd.service;
 
 import com.adu21.ddd.contract.UserRequestVO;
 import com.adu21.ddd.contract.UserResponseVO;
+import com.adu21.ddd.mapper.UserMapper;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.repository.UserRepository;
 import ma.glasnost.orika.MapperFacade;
@@ -17,6 +18,7 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+    private UserMapper userMapper = new UserMapper();
 
     public boolean userExist(User user) {
         return userRepository.findByUserName(user.getUserName()) != null ||
@@ -24,13 +26,7 @@ public class UserService {
     }
 
     public User createUser(UserRequestVO userRequest) {
-        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
-        mapperFactory.classMap(UserRequestVO.class, User.class)
-                .field("username", "userName")
-                .byDefault()
-                .register();
-        MapperFacade mapper = mapperFactory.getMapperFacade();
-        return mapper.map(userRequest, User.class);
+        return userMapper.map(userRequest, User.class);
     }
 
     public UserResponseVO saveUser(User user) {
