@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>
+</head>
+<script>
+    function postRegisterInfo(username, email){
+        var url = 'http://localhost:8000/api/v1/user';
+        var data = {username: username, email: email};
+
+        fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
+            'Content-Type': 'application/json',
+            })
+        })
+        .then(res => {
+            if (res.status == 201 ) {
+                return res.json()
+            } else {
+                throw new Exception("error")
+            }
+        })
+        .then(response => window.location.replace("http://localhost/password?userId="+response.id+"&token="+response.token))
+        .catch(error => alert("Username or email already been used!"));
+    }
+</script>
+<body>
+    <h1>Register</h1>
+    <label for="username">username:</label>
+    <input type="text" name="username" id="username"/>
+    <label for="email">email:</label>
+    <input type="text" name="email" id="email"/><br/><br/>
+    <input type="submit" value="create account" onclick='postRegisterInfo(username.value, email.value)'>
+</body>
+</html>

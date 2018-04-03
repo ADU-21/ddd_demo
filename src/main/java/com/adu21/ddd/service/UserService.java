@@ -19,8 +19,8 @@ public class UserService {
     private UserRepository userRepository;
 
     public boolean userExist(User user) {
-        return userRepository.findByUserName(user.getUserName()).size() > 0 ||
-                userRepository.findByEmail(user.getEmail()).size() > 0;
+        return userRepository.findByUserName(user.getUserName()) != null ||
+                userRepository.findByEmail(user.getEmail()) != null;
     }
 
     public User createUser(UserRequestVO userRequest) {
@@ -44,11 +44,11 @@ public class UserService {
     }
 
     public User findUserById(int id) {
-        return userRepository.findById(id).get(0);
+        return userRepository.findById(id);
     }
 
     public User findUserByName(String userName) {
-        return userRepository.findByUserName(userName).get(0);
+        return userRepository.findByUserName(userName);
     }
 
     public boolean verifyPassword(UserRequestVO userRequest) {

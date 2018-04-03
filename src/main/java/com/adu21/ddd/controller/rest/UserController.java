@@ -9,10 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.xml.ws.Response;
-import java.util.Map;
-
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api/${api.version}")
@@ -21,14 +19,13 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    // Create user
     @CrossOrigin
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ResponseEntity<UserResponseVO> createUser(@RequestBody UserRequestVO userRequest) {
         User user = userService.createUser(userRequest);
-        if(userService.userExist(user)) {
+        if (userService.userExist(user)) {
             return ResponseEntity.status(CONFLICT).body(new UserResponseVO());
-        }else {
+        } else {
             UserResponseVO userResponse = userService.saveUser(user);
             return ResponseEntity.status(CREATED).body(userResponse);
         }
@@ -36,13 +33,13 @@ public class UserController {
 
     @CrossOrigin
     @RequestMapping(value = "/user/{userId}/password", method = RequestMethod.PUT)
-    public ResponseEntity<Void> resetPassword(@PathVariable String userId, @RequestBody UserRequestVO userRequest){
+    public ResponseEntity<Void> resetPassword(@PathVariable String userId, @RequestBody UserRequestVO userRequest) {
         User user = userService.findUserById(Integer.parseInt(userId));
-        if(user.getToken().equals(userRequest.getToken())) {
-           user.setPassWord(userRequest.getPassword());
-           userService.saveUser(user);
-           return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        }else{
+        if (user.getToken().equals(userRequest.getToken())) {
+            user.setPassWord(userRequest.getPassword());
+            userService.saveUser(user);
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        } else {
             return new ResponseEntity<>(HttpStatus.FORBIDDEN);
         }
     }

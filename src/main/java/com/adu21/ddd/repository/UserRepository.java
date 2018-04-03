@@ -4,12 +4,11 @@ import com.adu21.ddd.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
 
-    List<User> findByUserName(String userName);
-    List<User> findByEmail(String email);
-    List<User> findById(int id);
+    User findByUserName(String userName);
+    User findByEmail(String email);
+    User findById(int id);
 }
