@@ -1,4 +1,4 @@
-package com.adu21.ddd.domain;
+package com.adu21.ddd.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

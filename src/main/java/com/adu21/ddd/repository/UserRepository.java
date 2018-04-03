@@ -1,6 +1,6 @@
 package com.adu21.ddd.repository;
 
-import com.adu21.ddd.domain.User;
+import com.adu21.ddd.model.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

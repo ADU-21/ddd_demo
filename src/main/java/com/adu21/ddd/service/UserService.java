@@ -1,18 +1,43 @@
 package com.adu21.ddd.service;
 
-import com.adu21.ddd.domain.User;
+import com.adu21.ddd.model.User;
+import com.adu21.ddd.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-public interface UserService {
+@Service
+public class UserService {
 
-    boolean userExist(User user);
+    @Autowired
+    private UserRepository userRepository;
 
-    boolean saveUser(User user);
+    public boolean userExist(User user) {
+        return userRepository.findByUserName(user.getUserName()).size() > 0 ||
+                userRepository.findByEmail(user.getEmail()).size() > 0;
+    }
 
-    User findUserByToken(String token);
+    public boolean saveUser(User user) {
+        userRepository.save(user);
+        return true;
+    }
 
-    User findUserByName(String userName);
+    public User findUserByToken(String token) {
+        return userRepository.findByToken(token).get(0);
+    }
 
-    boolean verifyPassword(User user, String password);
+    public User findUserByName(String userName) {
+        return userRepository.findByUserName(userName).get(0);
+    }
 
-    boolean userNameExist(String username);
+    public boolean verifyPassword(User user, String password) {
+        user = this.findUserByName(user.getUserName());
+        if(user == null){
+            return false;
+        }
+        return user.getPassWord().equals(password);
+    }
+
+    public boolean userNameExist(String username) {
+        return userRepository.findByUserName(username).size() != 0;
+    }
 }

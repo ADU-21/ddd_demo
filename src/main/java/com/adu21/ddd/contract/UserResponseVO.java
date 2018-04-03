@@ -1,4 +1,4 @@
-package com.adu21.ddd.domain;
+package com.adu21.ddd.contract;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegisterResponseVO {
+public class UserResponseVO {
     private String token;
     private boolean success;
 }

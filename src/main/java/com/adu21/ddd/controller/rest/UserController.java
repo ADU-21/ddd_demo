@@ -1,8 +1,8 @@
-package com.adu21.ddd.controller;
+package com.adu21.ddd.controller.rest;
 
-import com.adu21.ddd.domain.RegisterResponseVO;
-import com.adu21.ddd.domain.User;
-import com.adu21.ddd.service.UserServiceImp;
+import com.adu21.ddd.contract.UserResponseVO;
+import com.adu21.ddd.model.User;
+import com.adu21.ddd.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,20 +16,20 @@ import java.util.UUID;
 public class UserController {
 
     @Autowired
-    private UserServiceImp userServiceImp;
+    private UserService userService;
 
     @CrossOrigin
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public ResponseEntity<RegisterResponseVO> register(@RequestBody Map<String, String> requestBody) {
+    @RequestMapping(value = "/register", method = RequestMethod.POST)  // 不需要动作 restful 设计原则
+    public ResponseEntity<UserResponseVO> register(@RequestBody Map<String, String> requestBody) {
         User user = new User();
-        RegisterResponseVO response = new RegisterResponseVO();
+        UserResponseVO response = new UserResponseVO();
         user.setEmail(requestBody.get("email"));
         user.setUserName(requestBody.get("username"));
 
         String token = UUID.randomUUID().toString();
         user.setToken(token);
 
-        response.setSuccess(!userServiceImp.userExist(user) && userServiceImp.saveUser(user));
+        response.setSuccess(!userService.userExist(user) && userService.saveUser(user));
         response.setToken(token);
 
         return new ResponseEntity<>(response, HttpStatus.OK);
@@ -39,9 +39,9 @@ public class UserController {
     @RequestMapping(value = "/password", method = RequestMethod.POST)
     public boolean setPassword(@RequestBody Map<String, String> requestBody) {
         try {
-            User user = userServiceImp.findUserByToken(requestBody.get("token"));
+            User user = userService.findUserByToken(requestBody.get("token"));
             user.setPassWord(requestBody.get("password"));
-            userServiceImp.saveUser(user);
+            userService.saveUser(user);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,11 +52,11 @@ public class UserController {
     @CrossOrigin
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public boolean login(@RequestBody Map<String, String> requestBody){
-        if(!userServiceImp.userNameExist(requestBody.get("username"))){
+        if(!userService.userNameExist(requestBody.get("username"))){
             return false;
         }
-        User user = userServiceImp.findUserByName(requestBody.get("username"));
-        return userServiceImp.verifyPassword(user, requestBody.get("password"));
+        User user = userService.findUserByName(requestBody.get("username"));
+        return userService.verifyPassword(user, requestBody.get("password"));
     }
 
 }

@@ -10,11 +10,11 @@
         var data = {username: username, email: email};
 
         fetch(url, {
-          method: 'POST',
-          body: JSON.stringify(data),
-          headers: new Headers({
+            method: 'POST',
+            body: JSON.stringify(data),
+            headers: new Headers({
             'Content-Type': 'application/json',
-          })
+            })
         }).then(res => res.json())
         .catch(error => console.error('Error:', error))
         .then(response => (response.success ? window.location.replace("http://localhost/password?token="+response.token):alert("Account or Email already exsit")));
