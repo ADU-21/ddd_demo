@@ -4,7 +4,7 @@ spring:
     description: "This is demo for ddd workshop"
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: validate
   datasource:
     url: jdbc:mysql://localhost:3306/mydb
     username: root

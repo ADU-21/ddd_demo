@@ -9,7 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserResponseVO {
-    private int id;
+public class UserRequestVO {
+    private String username;
+    private String email;
+    private String password;
     private String token;
 }

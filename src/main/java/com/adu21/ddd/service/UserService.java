@@ -1,9 +1,16 @@
 package com.adu21.ddd.service;
 
+import com.adu21.ddd.contract.UserRequestVO;
+import com.adu21.ddd.contract.UserResponseVO;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.repository.UserRepository;
+import ma.glasnost.orika.MapperFacade;
+import ma.glasnost.orika.MapperFactory;
+import ma.glasnost.orika.impl.DefaultMapperFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -16,28 +23,36 @@ public class UserService {
                 userRepository.findByEmail(user.getEmail()).size() > 0;
     }
 
-    public boolean saveUser(User user) {
-        userRepository.save(user);
-        return true;
+    public User createUser(UserRequestVO userRequest) {
+        MapperFactory mapperFactory = new DefaultMapperFactory.Builder().build();
+        mapperFactory.classMap(UserRequestVO.class, User.class)
+                .field("username", "userName")
+                .byDefault()
+                .register();
+        MapperFacade mapper = mapperFactory.getMapperFacade();
+        return mapper.map(userRequest, User.class);
     }
 
-    public User findUserByToken(String token) {
-        return userRepository.findByToken(token).get(0);
+    public UserResponseVO saveUser(User user) {
+        UserResponseVO userResponse = new UserResponseVO();
+        String token = UUID.randomUUID().toString();
+        user.setToken(token);
+        userResponse.setToken(token);
+        userRepository.save(user);
+        userResponse.setId(user.getId());
+        return userResponse;
+    }
+
+    public User findUserById(int id) {
+        return userRepository.findById(id).get(0);
     }
 
     public User findUserByName(String userName) {
         return userRepository.findByUserName(userName).get(0);
     }
 
-    public boolean verifyPassword(User user, String password) {
-        user = this.findUserByName(user.getUserName());
-        if(user == null){
-            return false;
-        }
-        return user.getPassWord().equals(password);
-    }
-
-    public boolean userNameExist(String username) {
-        return userRepository.findByUserName(username).size() != 0;
+    public boolean verifyPassword(UserRequestVO userRequest) {
+        User user = this.findUserByName(userRequest.getUsername());
+        return user != null && userRequest.getPassword().equals(user.getPassWord());
     }
 }

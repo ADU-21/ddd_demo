@@ -6,7 +6,7 @@
 </head>
 <script>
     function postRegisterInfo(username, password){
-        var url = 'http://localhost:8000/user/login';
+        var url = 'http://localhost:8000/api/v1/user/login';
         var data = {username: username, password: password};
 
         fetch(url, {
@@ -15,17 +15,22 @@
             headers: new Headers({
             'Content-Type': 'application/json',
             })
-        }).then(res => res.json())
-        .catch(error => console.error('Error:', error))
-        .then(response => (response ? window.location.replace("http://localhost") : alert("User name or password error!")));
+        }).then(res => {
+            if (res.status == 302) {
+                window.location.replace("http://localhost")
+            } else {
+                throw new Exception("error")
+            }
+        })
+        .catch(error => alert("Login failed!"));
     }
 </script>
 <body>
     <h1>Login</h1>
     <label for="username">username:</label>
-    <input type="text" name="username" id="username"/>
+    <input type="text" name="username" id="username"/><br/><br/>
     <label for="password">password:</label>
-    <input type="password" name="password" id="password"/><br/>
-    <input type="submit" value="submit" onclick='postRegisterInfo(username.value, password.value)'>
+    <input type="password" name="password" id="password"/><br/><br/>
+    <input type="submit" value="Login" onclick='postRegisterInfo(username.value, password.value)'>
 </body>
 </html>
