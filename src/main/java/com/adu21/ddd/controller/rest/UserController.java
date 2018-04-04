@@ -13,8 +13,12 @@ import com.adu21.ddd.exception.WrongPasswordException;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.service.UserService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/api/${api.version}")
+@Api(value = "User REST API", description = "User related API")
 public class UserController {
 
     @Autowired
@@ -23,6 +27,7 @@ public class UserController {
     @CrossOrigin
     @PostMapping(value = "/user")
     @ResponseStatus(CREATED)
+    @ApiOperation(value = "POST", notes = "Create user")
     public UserResponseVO createUser(@RequestBody UserRequestVO userRequest) {
         User user = userService.createUser(userRequest);
         if (userService.userExist(user)) throw new UserExistException();
@@ -32,6 +37,7 @@ public class UserController {
     @CrossOrigin
     @PutMapping(value = "/user/{userId}/password")
     @ResponseStatus(ACCEPTED)
+    @ApiOperation(value = "POST", notes = "Set password")
     public void resetPassword(@PathVariable String userId, @RequestBody UserRequestVO userRequest) {
         User user = userService.findUserById(Integer.parseInt(userId));
         if (!user.getToken().equals(userRequest.getToken())) throw new TokenInvalidException();
@@ -42,6 +48,7 @@ public class UserController {
     @CrossOrigin
     @PostMapping(value = "/user/login")
     @ResponseStatus(FOUND)
+    @ApiOperation(value = "POST", notes = "User login")
     public void login(@RequestBody UserRequestVO userRequest) {
         if (!userService.verifyPassword(userRequest)) throw new WrongPasswordException();
     }
