@@ -1,16 +1,17 @@
 package com.adu21.ddd.controller.rest;
 
-import com.adu21.ddd.contract.UserRequestVO;
-import com.adu21.ddd.contract.UserResponseVO;
-import com.adu21.ddd.model.User;
-import com.adu21.ddd.service.UserService;
+import static org.springframework.http.HttpStatus.CONFLICT;
+import static org.springframework.http.HttpStatus.CREATED;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.CREATED;
+import com.adu21.ddd.contract.UserRequestVO;
+import com.adu21.ddd.contract.UserResponseVO;
+import com.adu21.ddd.model.User;
+import com.adu21.ddd.service.UserService;
 
 @RestController
 @RequestMapping("/api/${api.version}")

@@ -1,17 +1,15 @@
 package com.adu21.ddd.service;
 
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import com.adu21.ddd.contract.UserRequestVO;
 import com.adu21.ddd.contract.UserResponseVO;
 import com.adu21.ddd.mapper.UserMapper;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.repository.UserRepository;
-import ma.glasnost.orika.MapperFacade;
-import ma.glasnost.orika.MapperFactory;
-import ma.glasnost.orika.impl.DefaultMapperFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
-import java.util.UUID;
 
 @Service
 public class UserService {
