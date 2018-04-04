@@ -1,15 +1,15 @@
 package com.adu21.ddd.controller.rest;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.adu21.ddd.contract.UserRequestVO;
 import com.adu21.ddd.contract.UserResponseVO;
+import com.adu21.ddd.exception.TokenInvalidException;
+import com.adu21.ddd.exception.UserExistException;
+import com.adu21.ddd.exception.WrongPasswordException;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.service.UserService;
 
@@ -21,34 +21,28 @@ public class UserController {
     private UserService userService;
 
     @CrossOrigin
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public ResponseEntity<UserResponseVO> createUser(@RequestBody UserRequestVO userRequest) {
+    @PostMapping(value = "/user")
+    @ResponseStatus(CREATED)
+    public UserResponseVO createUser(@RequestBody UserRequestVO userRequest) {
         User user = userService.createUser(userRequest);
-        if (userService.userExist(user)) {
-            return ResponseEntity.status(CONFLICT).body(new UserResponseVO());
-        } else {
-            UserResponseVO userResponse = userService.saveUser(user);
-            return ResponseEntity.status(CREATED).body(userResponse);
-        }
+        if (userService.userExist(user)) throw new UserExistException();
+        return userService.saveUser(user);
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/user/{userId}/password", method = RequestMethod.PUT)
-    public ResponseEntity<Void> resetPassword(@PathVariable String userId, @RequestBody UserRequestVO userRequest) {
+    @PutMapping(value = "/user/{userId}/password")
+    @ResponseStatus(ACCEPTED)
+    public void resetPassword(@PathVariable String userId, @RequestBody UserRequestVO userRequest) {
         User user = userService.findUserById(Integer.parseInt(userId));
-        if (user.getToken().equals(userRequest.getToken())) {
-            user.setPassWord(userRequest.getPassword());
-            userService.saveUser(user);
-            return new ResponseEntity<>(HttpStatus.ACCEPTED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.FORBIDDEN);
-        }
+        if (!user.getToken().equals(userRequest.getToken())) throw new TokenInvalidException();
+        user.setPassWord(userRequest.getPassword());
+        userService.saveUser(user);
     }
 
     @CrossOrigin
-    @RequestMapping(value = "/user/login", method = RequestMethod.POST)
-    public ResponseEntity<Void> login(@RequestBody UserRequestVO userRequest) {
-        return (userService.verifyPassword(userRequest) ? new ResponseEntity<>(HttpStatus.FOUND) :
-                new ResponseEntity<>(HttpStatus.FORBIDDEN));
+    @PostMapping(value = "/user/login")
+    @ResponseStatus(FOUND)
+    public void login(@RequestBody UserRequestVO userRequest) {
+        if (!userService.verifyPassword(userRequest)) throw new WrongPasswordException();
     }
 }
