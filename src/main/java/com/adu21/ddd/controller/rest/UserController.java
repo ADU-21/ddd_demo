@@ -17,7 +17,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 @RestController
-@RequestMapping("/api/${api.version}")
+@RequestMapping("/api")
 @Api(value = "User REST API", description = "User related API")
 public class UserController {
 

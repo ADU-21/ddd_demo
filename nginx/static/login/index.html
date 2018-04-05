@@ -6,7 +6,7 @@
 </head>
 <script>
     function postRegisterInfo(username, password){
-        var url = 'http://localhost:8000/api/v1/user/login';
+        var url = 'http://localhost:8000/api/user/login';
         var data = {username: username, password: password};
 
         fetch(url, {
