@@ -1,15 +1,12 @@
 package com.adu21.ddd.service;
 
-import java.util.UUID;
-
+import com.adu21.ddd.contract.UserRegisterResponseVO;
+import com.adu21.ddd.model.User;
+import com.adu21.ddd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.adu21.ddd.contract.UserRegisterRequestVO;
-import com.adu21.ddd.contract.UserRegisterResponseVO;
-import com.adu21.ddd.mapper.UserMapper;
-import com.adu21.ddd.model.User;
-import com.adu21.ddd.repository.UserRepository;
+import java.util.UUID;
 
 @Service
 public class UserService {
@@ -34,6 +31,10 @@ public class UserService {
         user.setUuid(uuid);
         userRepository.save(user);
         return new UserRegisterResponseVO(uuid);
+    }
+
+    public boolean verifyEmail(String email) {
+        return userRepository.existsByEmail(email);
     }
 
 //    public User findUserById(int id) {

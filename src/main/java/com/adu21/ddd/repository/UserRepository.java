@@ -8,4 +8,5 @@ import com.adu21.ddd.model.User;
 
 @Repository
 public interface UserRepository extends CrudRepository<User, Long> {
+    boolean existsByEmail(String email);
 }

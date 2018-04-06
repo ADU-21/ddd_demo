@@ -1,18 +1,25 @@
 package com.adu21.ddd.exception;
 
-import static org.springframework.http.HttpStatus.CONFLICT;
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.HttpStatus.FORBIDDEN;
+import static org.springframework.http.HttpStatus.FOUND;
 
 @ControllerAdvice(annotations = RestController.class)
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(UserExistException.class)
-    @ResponseStatus(CONFLICT)
+    @ExceptionHandler(ErrorInputException.class)
+    @ResponseStatus(FORBIDDEN)
     @ResponseBody
-    public String handleException(UserExistException e) {
-        return "User already Exist";
+    public String handleException(ErrorInputException e) {
+        return "You have input wrong information, please try it again.";
+    }
+
+    @ExceptionHandler(EmailExistException.class)
+    @ResponseStatus(FOUND)
+    @ResponseBody
+    public String handleException(EmailExistException e) {
+        return "Email already registered, please login.";
     }
 
     @ExceptionHandler(TokenInvalidException.class)

@@ -5,9 +5,9 @@
     <title>Welcome</title>
 </head>
 <script>
-    function postRegisterInfo(policyNumber, email){
+    function postRegisterInfo(policynumber, email){
         var url = 'http://localhost:8000/api/user';
-        var data = {username: username, email: email};
+        var data = {policynumber: policynumber, email: email};
 
         fetch(url, {
             method: 'POST',
@@ -24,15 +24,15 @@
             }
         })
         .then(response => window.location.replace("http://localhost/password?userId="+response.id+"&token="+response.token))
-        .catch(error => alert("Username or email already been used!"));
+        .catch(error => alert("Error"));
     }
 </script>
 <body>
     <h1>Register</h1>
-    <label for="username">policyNumber:</label>
-    <input type="text" name="username" id="username"/>
+    <label for="policynumber">policynumber:</label>
+    <input type="text" name="policynumber" id="policynumber"/>
     <label for="email">email:</label>
     <input type="text" name="email" id="email"/><br/><br/>
-    <input type="submit" value="create account" onclick='postRegisterInfo(username.value, email.value)'>
+    <input type="submit" value="create account" onclick='postRegisterInfo(policynumber.value, email.value)'>
 </body>
 </html>

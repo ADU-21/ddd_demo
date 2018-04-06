@@ -1,20 +1,17 @@
 package com.adu21.ddd.controller.rest;
 
-import static org.springframework.http.HttpStatus.*;
-
+import com.adu21.ddd.contract.UserRegisterRequestVO;
+import com.adu21.ddd.contract.UserRegisterResponseVO;
+import com.adu21.ddd.exception.EmailExistException;
+import com.adu21.ddd.exception.ErrorInputException;
+import com.adu21.ddd.service.PolicyService;
+import com.adu21.ddd.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import com.adu21.ddd.contract.UserRegisterRequestVO;
-import com.adu21.ddd.contract.UserRegisterResponseVO;
-import com.adu21.ddd.exception.TokenInvalidException;
-import com.adu21.ddd.exception.UserExistException;
-import com.adu21.ddd.exception.WrongPasswordException;
-import com.adu21.ddd.model.User;
-import com.adu21.ddd.service.UserService;
-
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
 @RequestMapping("/api")
@@ -24,13 +21,17 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PolicyService policyService;
+
     @CrossOrigin
     @PostMapping(value = "/user")
     @ResponseStatus(CREATED)
     @ApiOperation(value = "POST", notes = "Create user")
     public UserRegisterResponseVO createUser(@RequestBody UserRegisterRequestVO userRequest) {
-//        User user = userService.createUser(userRequest.getEmail());
-//        if (userService.userExist(user)) throw new UserExistException();
+        if (!policyService.verifyPolicyNumber(userRequest) || userRequest.getEmail().equals("") ||
+                userRequest.getPolicyNumber().equals("")) throw new ErrorInputException();
+        if (userService.verifyEmail(userRequest.getEmail())) throw new EmailExistException();
         return userService.saveUser(userRequest.getEmail());
     }
 

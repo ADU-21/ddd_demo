@@ -1,21 +1,19 @@
 package com.adu21.ddd.integration.controller;
 
-import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
-
+import com.adu21.ddd.controller.rest.UserController;
+import com.adu21.ddd.integration.BaseIntegrationTest;
+import com.adu21.ddd.model.Policy;
+import com.adu21.ddd.repository.PolicyRepository;
+import com.adu21.ddd.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import com.adu21.ddd.controller.rest.UserController;
-import com.adu21.ddd.integration.BaseIntegrationTest;
-import com.adu21.ddd.model.Policy;
-import com.adu21.ddd.model.User;
-import com.adu21.ddd.repository.PolicyRepository;
-import com.adu21.ddd.repository.UserRepository;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
 public class RegisterIntegrationTest extends BaseIntegrationTest {
 
@@ -32,12 +30,12 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
     @Before
     public void setUp() {
         mockMvc = standaloneSetup(userController).build();
-        userRepository.save(new User("uuid", null,"email"));
-        policyRepository.save(new Policy("123","uuid"));
+//        userRepository.save(new User("uuid", null,"email"));
+        policyRepository.save(new Policy("123", "email", "uuid"));
     }
 
     @Test
-    public void registerSuccessWithEmailAndPolicyNumber() throws Exception {
+    public void registerSuccess() throws Exception {
         intputJson = "{\"email\":\"email\",\"policyNumber\":\"123\"}";
         mockMvc.perform(post("/api/user")
                 .contentType(APPLICATION_JSON).content(intputJson))

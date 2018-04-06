@@ -10,6 +10,6 @@ create table policy
 (
   uuid varchar(255) not null,
   policy_number varchar(255) not null,
-  mail varchar(255) not null,
+  email varchar(255) not null,
   primary key(policy_number)
 );
