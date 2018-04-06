@@ -10,6 +10,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Builder
 @Data
 @NoArgsConstructor
@@ -17,18 +19,7 @@ import lombok.NoArgsConstructor;
 @Entity
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    private String userName;
+    private String uuid;
     private String passWord;
     private String email;
-    private String token;
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Customer[id=%d, userName='%s', email='%s']",
-                id, userName, email
-        );
-    }
 }

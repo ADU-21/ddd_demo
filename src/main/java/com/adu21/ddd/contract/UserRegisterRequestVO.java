@@ -11,14 +11,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@ApiModel(description = "User request model")
-public class UserRequestVO {
-    @ApiModelProperty(value = "Name", example = "Yidong")
-    private String username;
+@ApiModel(description = "User register request model")
+public class UserRegisterRequestVO {
+    @ApiModelProperty(value = "PolicyNumber", example = "NOP123456789")
+    private String policyNumber;
     @ApiModelProperty(value = "Email", example = "yiddu@thoughtworks.com")
     private String email;
-    @ApiModelProperty(value = "Password", example = "Password")
-    private String password;
-    @ApiModelProperty(value = "Token", example = "c91ff739-f623-45c0-9686-393c03878768")
-    private String token;
 }

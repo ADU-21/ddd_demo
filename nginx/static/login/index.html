@@ -5,7 +5,7 @@
     <title>Welcome</title>
 </head>
 <script>
-    function postRegisterInfo(username, password){
+    function postRegisterInfo(policyNumber, password){
         var url = 'http://localhost:8000/api/user/login';
         var data = {username: username, password: password};
 
@@ -27,7 +27,7 @@
 </script>
 <body>
     <h1>Login</h1>
-    <label for="username">username:</label>
+    <label for="username">policyNumber:</label>
     <input type="text" name="username" id="username"/><br/><br/>
     <label for="password">password:</label>
     <input type="password" name="password" id="password"/><br/><br/>

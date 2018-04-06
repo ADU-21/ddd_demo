@@ -1,4 +1,7 @@
 insert into user
-values(1,'yiddu@thoughtworks.com', 'yidong', '123', '123');
-insert into user
-values(2,'123', '123', '123', '123');
+values('5007ce96-6507-43a8-86d3-d9a448271c09','yiddu@thoughtworks.com', '123');
+
+insert into policy
+values('5007ce96-6507-43a8-86d3-d9a448271c09','NOP123456789','123');
+insert into policy
+values('1','123','123')
