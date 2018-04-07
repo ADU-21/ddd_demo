@@ -4,13 +4,18 @@ import com.adu21.ddd.contract.UserRegisterRequestVO;
 import com.adu21.ddd.contract.UserRegisterResponseVO;
 import com.adu21.ddd.exception.EmailExistException;
 import com.adu21.ddd.exception.ErrorInputException;
+import com.adu21.ddd.exception.UserNotExistException;
 import com.adu21.ddd.service.PolicyService;
 import com.adu21.ddd.service.UserService;
+import com.adu21.ddd.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
+import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -32,19 +37,20 @@ public class UserController {
         if (!policyService.verifyPolicyNumber(userRequest) || userRequest.getEmail().equals("") ||
                 userRequest.getPolicyNumber().equals("")) throw new ErrorInputException();
         if (userService.verifyEmail(userRequest.getEmail())) throw new EmailExistException();
-        return userService.saveUser(userRequest.getEmail());
+        User user = userService.createUser(userRequest.getEmail());
+        return userService.saveUser(user);
     }
 
-//    @CrossOrigin
-//    @PutMapping(value = "/user/{userId}/password")
-//    @ResponseStatus(ACCEPTED)
-//    @ApiOperation(value = "POST", notes = "Set password")
-//    public void resetPassword(@PathVariable String userId, @RequestBody UserRegisterRequestVO userRequest) {
-//        User user = userService.findUserById(Integer.parseInt(userId));
-//        if (!user.getToken().equals(userRequest.getToken())) throw new TokenInvalidException();
-//        user.setPassWord(userRequest.getPassword());
-//        userService.saveUser(user);
-//    }
+    @CrossOrigin
+    @PutMapping(value = "/user/password")
+    @ResponseStatus(ACCEPTED)
+    @ApiOperation(value = "PUT", notes = "Set password")
+    public void resetPassword(@RequestParam String uuid, @RequestBody Map<String, String> requesBody) {
+        if(!userService.userExist(uuid)) throw new UserNotExistException();
+        User user = userService.findUserByUuid(uuid);
+        user.setPassWord(requesBody.get("password"));
+        userService.saveUser(user);
+    }
 //
 //    @CrossOrigin
 //    @PostMapping(value = "/user/login")

@@ -7,8 +7,8 @@
 <script>
     function setPassword(password){
         var urlParams = new URLSearchParams(window.location.search);
-        var url = "http://localhost:8000/api/user/"+urlParams.get("userId")+"/password";
-        var data = {password: password, token: urlParams.get("token")};
+        var url = "http://localhost:8000/api/user/password?uuid="+urlParams.get("uuid");
+        var data = {password: password};
 
         fetch(url, {
             method: 'PUT',

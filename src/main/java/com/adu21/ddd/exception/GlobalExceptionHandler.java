@@ -22,11 +22,11 @@ public class GlobalExceptionHandler {
         return "Email already registered, please login.";
     }
 
-    @ExceptionHandler(TokenInvalidException.class)
+    @ExceptionHandler(UserNotExistException.class)
     @ResponseStatus(FORBIDDEN)
     @ResponseBody
-    public String handleException(TokenInvalidException e) {
-        return "Invalid token";
+    public String handleException(UserNotExistException e) {
+        return "Invalid uuid";
     }
 
     @ExceptionHandler(WrongPasswordException.class)

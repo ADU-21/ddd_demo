@@ -7,7 +7,7 @@
 <script>
     function postRegisterInfo(policynumber, email){
         var url = 'http://localhost:8000/api/user';
-        var data = {policynumber: policynumber, email: email};
+        var data = {policyNumber: policynumber, email: email};
 
         fetch(url, {
             method: 'POST',
@@ -23,7 +23,7 @@
                 throw new Exception("error")
             }
         })
-        .then(response => window.location.replace("http://localhost/password?userId="+response.id+"&token="+response.token))
+        .then(response => window.location.replace("http://localhost/password?&uuid="+response.uuid))
         .catch(error => alert("Error"));
     }
 </script>
