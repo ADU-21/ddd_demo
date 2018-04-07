@@ -33,8 +33,8 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
     @Before
     public void setUp() {
         mockMvc = standaloneSetup(userController).build();
-        userRepository.save(new User("user","password","email"));
-        userRepository.save(new User("userWaitingForResetPassword", null,"emailWaitingForResetPassword"));
+        userRepository.save(new User("user", "password", "email"));
+        userRepository.save(new User("userWaitingForResetPassword", null, "emailWaitingForResetPassword"));
         policyRepository.save(new Policy("policyUnregistered", "mailUnregistered", "userUnregistered"));
     }
 

@@ -7,9 +7,9 @@ import com.adu21.ddd.exception.EmailExistException;
 import com.adu21.ddd.exception.ErrorInputException;
 import com.adu21.ddd.exception.UserNotExistException;
 import com.adu21.ddd.exception.WrongPasswordException;
+import com.adu21.ddd.model.User;
 import com.adu21.ddd.service.PolicyService;
 import com.adu21.ddd.service.UserService;
-import com.adu21.ddd.model.User;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-import static org.springframework.http.HttpStatus.ACCEPTED;
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api")
@@ -49,7 +47,7 @@ public class UserController {
     @ResponseStatus(ACCEPTED)
     @ApiOperation(value = "PUT", notes = "Set password")
     public void resetPassword(@RequestParam String uuid, @RequestBody Map<String, String> requesBody) {
-        if(!userService.userExist(uuid)) throw new UserNotExistException();
+        if (!userService.userExist(uuid)) throw new UserNotExistException();
         User user = userService.findUserByUuid(uuid);
         user.setPassWord(requesBody.get("password"));
         userService.saveUser(user);
