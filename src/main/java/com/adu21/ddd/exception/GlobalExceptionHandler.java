@@ -29,11 +29,11 @@ public class GlobalExceptionHandler {
         return "Invalid uuid";
     }
 
-    @ExceptionHandler(WrongPasswordException.class)
+    @ExceptionHandler(LoginFailedException.class)
     @ResponseStatus(FORBIDDEN)
     @ResponseBody
-    public String handleException(WrongPasswordException e) {
-        return "Wrong password";
+    public String handleException(LoginFailedException e) {
+        return "Login failed";
     }
 
 }

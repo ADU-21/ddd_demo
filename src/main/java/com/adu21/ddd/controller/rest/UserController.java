@@ -6,7 +6,7 @@ import com.adu21.ddd.contract.UserRegisterResponseVO;
 import com.adu21.ddd.exception.EmailExistException;
 import com.adu21.ddd.exception.ErrorInputException;
 import com.adu21.ddd.exception.UserNotExistException;
-import com.adu21.ddd.exception.WrongPasswordException;
+import com.adu21.ddd.exception.LoginFailedException;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.service.PolicyService;
 import com.adu21.ddd.service.UserService;
@@ -58,6 +58,6 @@ public class UserController {
     @ResponseStatus(FOUND)
     @ApiOperation(value = "POST", notes = "User login")
     public void login(@RequestBody UserLoginRequestVO userLoginRequestVO) {
-        if (!userService.verifyPassword(userLoginRequestVO)) throw new WrongPasswordException();
+        if (!userService.verifyEmailAndPassword(userLoginRequestVO)) throw new LoginFailedException();
     }
 }

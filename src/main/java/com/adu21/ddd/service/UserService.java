@@ -40,7 +40,7 @@ public class UserService {
         return new UserRegisterResponseVO(user.getUuid());
     }
 
-    public boolean verifyPassword(UserLoginRequestVO userLoginRequestVO) {
+    public boolean verifyEmailAndPassword(UserLoginRequestVO userLoginRequestVO) {
         User user = userRepository.findByEmail(userLoginRequestVO.getEmail());
         return user != null && userLoginRequestVO.getPassword().equals(user.getPassWord());
     }
