@@ -5,9 +5,9 @@
     <title>Welcome</title>
 </head>
 <script>
-    function postRegisterInfo(policyNumber, password){
+    function postRegisterInfo(email, password){
         var url = 'http://localhost:8000/api/user/login';
-        var data = {username: username, password: password};
+        var data = {email: email, password: password};
 
         fetch(url, {
             method: 'POST',
@@ -27,10 +27,10 @@
 </script>
 <body>
     <h1>Login</h1>
-    <label for="username">policyNumber:</label>
-    <input type="text" name="username" id="username"/><br/><br/>
+    <label for="email">email:</label>
+    <input type="text" name="email" id="email"/><br/><br/>
     <label for="password">password:</label>
     <input type="password" name="password" id="password"/><br/><br/>
-    <input type="submit" value="Login" onclick='postRegisterInfo(username.value, password.value)'>
+    <input type="submit" value="Login" onclick='postRegisterInfo(email.value, password.value)'>
 </body>
 </html>

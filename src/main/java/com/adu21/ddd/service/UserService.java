@@ -1,5 +1,6 @@
 package com.adu21.ddd.service;
 
+import com.adu21.ddd.contract.UserLoginRequestVO;
 import com.adu21.ddd.contract.UserRegisterResponseVO;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.repository.UserRepository;
@@ -39,8 +40,8 @@ public class UserService {
         return new UserRegisterResponseVO(user.getUuid());
     }
 
-//    public boolean verifyPassword(UserRegisterRequestVO userRequest) {
-//        User user = this.findUserByName(userRequest.getPolicyNumber());
-//        return user != null && userRequest.getPassword().equals(user.getPassWord());
-//    }
+    public boolean verifyPassword(UserLoginRequestVO userLoginRequestVO) {
+        User user = userRepository.findByEmail(userLoginRequestVO.getEmail());
+        return user != null && userLoginRequestVO.getPassword().equals(user.getPassWord());
+    }
 }

@@ -1,10 +1,12 @@
 package com.adu21.ddd.controller.rest;
 
+import com.adu21.ddd.contract.UserLoginRequestVO;
 import com.adu21.ddd.contract.UserRegisterRequestVO;
 import com.adu21.ddd.contract.UserRegisterResponseVO;
 import com.adu21.ddd.exception.EmailExistException;
 import com.adu21.ddd.exception.ErrorInputException;
 import com.adu21.ddd.exception.UserNotExistException;
+import com.adu21.ddd.exception.WrongPasswordException;
 import com.adu21.ddd.service.PolicyService;
 import com.adu21.ddd.service.UserService;
 import com.adu21.ddd.model.User;
@@ -17,6 +19,7 @@ import java.util.Map;
 
 import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.FOUND;
 
 @RestController
 @RequestMapping("/api")
@@ -51,12 +54,12 @@ public class UserController {
         user.setPassWord(requesBody.get("password"));
         userService.saveUser(user);
     }
-//
-//    @CrossOrigin
-//    @PostMapping(value = "/user/login")
-//    @ResponseStatus(FOUND)
-//    @ApiOperation(value = "POST", notes = "User login")
-//    public void login(@RequestBody UserRegisterRequestVO userRequest) {
-//        if (!userService.verifyPassword(userRequest)) throw new WrongPasswordException();
-//    }
+
+    @CrossOrigin
+    @PostMapping(value = "/user/login")
+    @ResponseStatus(FOUND)
+    @ApiOperation(value = "POST", notes = "User login")
+    public void login(@RequestBody UserLoginRequestVO userLoginRequestVO) {
+        if (!userService.verifyPassword(userLoginRequestVO)) throw new WrongPasswordException();
+    }
 }

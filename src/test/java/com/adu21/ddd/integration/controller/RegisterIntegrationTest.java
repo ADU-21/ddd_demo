@@ -33,6 +33,7 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
     @Before
     public void setUp() {
         mockMvc = standaloneSetup(userController).build();
+        userRepository.save(new User("user","password","email"));
         userRepository.save(new User("userWaitingForResetPassword", null,"emailWaitingForResetPassword"));
         policyRepository.save(new Policy("policyUnregistered", "mailUnregistered", "userUnregistered"));
     }
@@ -53,5 +54,13 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
         mockMvc.perform(put(format("/api/user/password?uuid=%s", uuid))
                 .contentType(APPLICATION_JSON).content(inputJson))
                 .andExpect(status().isAccepted());
+    }
+
+    @Test
+    public void userLoginSuccess() throws Exception {
+        inputJson = "{\"email\":\"email\",\"password\":\"password\"}";
+        mockMvc.perform(post("/api/user/login")
+                .contentType(APPLICATION_JSON).content(inputJson))
+                .andExpect(status().isFound());
     }
 }
