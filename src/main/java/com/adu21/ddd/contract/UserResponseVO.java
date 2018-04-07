@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "User register response model")
-public class UserRegisterResponseVO {
+public class UserResponseVO {
     @ApiModelProperty(value = "Uuid", example = "c91ff739-f623-45c0-9686-393c03878768")
     private String uuid;
 }

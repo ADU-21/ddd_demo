@@ -15,6 +15,7 @@ import static java.lang.String.format;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -44,7 +45,7 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
         mockMvc.perform(post("/api/user")
                 .contentType(APPLICATION_JSON).content(inputJson))
                 .andExpect(status().isCreated())
-                .andExpect(MockMvcResultMatchers.jsonPath("$.uuid").isString());
+                .andExpect(jsonPath("$.uuid").isString());
     }
 
     @Test
@@ -61,6 +62,7 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
         inputJson = "{\"email\":\"email\",\"password\":\"password\"}";
         mockMvc.perform(post("/api/user/login")
                 .contentType(APPLICATION_JSON).content(inputJson))
-                .andExpect(status().isFound());
+                .andExpect(status().isFound())
+                .andExpect(jsonPath("$.uuid").value("user"));
     }
 }

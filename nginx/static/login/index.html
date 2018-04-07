@@ -17,11 +17,12 @@
             })
         }).then(res => {
             if (res.status == 302) {
-                window.location.replace("http://localhost")
+                return res.json()
             } else {
                 throw new Exception("error")
             }
         })
+        .then(response => window.location.replace("http://localhost/home?&uuid="+response.uuid))
         .catch(error => alert("Login failed!"));
     }
 </script>
