@@ -2,14 +2,13 @@ package com.adu21.ddd.integration.controller;
 
 import com.adu21.ddd.controller.rest.UserController;
 import com.adu21.ddd.integration.BaseIntegrationTest;
-import com.adu21.ddd.model.Policy;
+import com.adu21.ddd.model.HomePolicy;
 import com.adu21.ddd.model.User;
-import com.adu21.ddd.repository.PolicyRepository;
+import com.adu21.ddd.repository.HomePolicyRepository;
 import com.adu21.ddd.repository.UserRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import static java.lang.String.format;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
@@ -27,7 +26,7 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
     @Autowired
     private UserRepository userRepository;
     @Autowired
-    private PolicyRepository policyRepository;
+    private HomePolicyRepository homePolicyRepository;
 
     private String inputJson;
 
@@ -36,12 +35,15 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
         mockMvc = standaloneSetup(userController).build();
         userRepository.save(new User("user", "password", "email"));
         userRepository.save(new User("userWaitingForResetPassword", null, "emailWaitingForResetPassword"));
-        policyRepository.save(new Policy("policyUnregistered", "mailUnregistered", "userUnregistered"));
+        HomePolicy homePolicy = new HomePolicy();
+        homePolicy.setPolicyNumber(2);
+        homePolicy.setOwnerEmail("mailUnregistered");
+        homePolicyRepository.save(homePolicy);
     }
 
     @Test
     public void registerSuccess() throws Exception {
-        inputJson = "{\"email\":\"mailUnregistered\",\"policyNumber\":\"policyUnregistered\"}";
+        inputJson = "{\"ownerEmail\":\"mailUnregistered\",\"policyNumber\":\"2\"}";
         mockMvc.perform(post("/api/user")
                 .contentType(APPLICATION_JSON).content(inputJson))
                 .andExpect(status().isCreated())

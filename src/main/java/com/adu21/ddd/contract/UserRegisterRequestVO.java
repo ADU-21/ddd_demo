@@ -13,8 +13,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @ApiModel(description = "User register request model")
 public class UserRegisterRequestVO {
-    @ApiModelProperty(value = "PolicyNumber", example = "NOP123456789")
+    @ApiModelProperty(value = "PolicyNumber", example = "123")
     private String policyNumber;
-    @ApiModelProperty(value = "Email", example = "yiddu@thoughtworks.com")
-    private String email;
+    @ApiModelProperty(value = "OwnerEmail", example = "yiddu@thoughtworks.com")
+    private String ownerEmail;
 }

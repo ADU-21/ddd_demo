@@ -35,10 +35,10 @@ public class UserController {
     @ResponseStatus(CREATED)
     @ApiOperation(value = "POST", notes = "Create user")
     public UserResponseVO createUser(@RequestBody UserRegisterRequestVO userRequest) {
-        if (!policyService.verifyPolicyNumber(userRequest) || userRequest.getEmail().equals("") ||
-                userRequest.getPolicyNumber().equals("")) throw new ErrorInputException();
-        if (userService.verifyEmail(userRequest.getEmail())) throw new EmailExistException();
-        User user = userService.createUser(userRequest.getEmail());
+        if (!policyService.verifyPolicyNumber(userRequest) || userRequest.getOwnerEmail().equals("") ||
+                userRequest.getPolicyNumber().equals("") ) throw new ErrorInputException();
+        if (userService.verifyEmail(userRequest.getOwnerEmail())) throw new EmailExistException();
+        User user = userService.createUser(userRequest.getOwnerEmail());
         return userService.saveUser(user);
     }
 

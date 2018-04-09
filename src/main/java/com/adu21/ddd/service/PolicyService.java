@@ -1,7 +1,9 @@
 package com.adu21.ddd.service;
 
+import com.adu21.ddd.command.CreateHomePolicyCommand;
 import com.adu21.ddd.contract.UserRegisterRequestVO;
-import com.adu21.ddd.repository.PolicyRepository;
+import com.adu21.ddd.model.HomePolicy;
+import com.adu21.ddd.repository.HomePolicyRepository;
 import com.adu21.ddd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,14 +12,18 @@ import org.springframework.stereotype.Service;
 public class PolicyService {
 
     @Autowired
-    private PolicyRepository policyRepository;
+    private HomePolicyRepository homePolicyRepository;
     @Autowired
     private UserRepository userRepository;
 
-
     public boolean verifyPolicyNumber(UserRegisterRequestVO userRequest) {
-        return (policyRepository.existsByPolicyNumber(userRequest.getPolicyNumber()) &&
-                policyRepository.getByPolicyNumber(userRequest.getPolicyNumber()).getEmail().equals(userRequest.getEmail()))
-                || userRepository.existsByEmail(userRequest.getEmail());
+        return (homePolicyRepository.existsByPolicyNumber(Integer.valueOf(userRequest.getPolicyNumber())) &&
+                homePolicyRepository.getByPolicyNumber(Integer.valueOf(userRequest.getPolicyNumber())).getOwnerEmail().equals(userRequest.getOwnerEmail()))
+                || userRepository.existsByEmail(userRequest.getOwnerEmail());
+    }
+
+    public void apply(CreateHomePolicyCommand createHomePolicyCommand) {
+        HomePolicy homePolicy = new HomePolicy();
+        homePolicyRepository.save(homePolicy.apply(createHomePolicyCommand));
     }
 }
