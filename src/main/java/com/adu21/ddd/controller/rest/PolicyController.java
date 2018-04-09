@@ -1,5 +1,6 @@
 package com.adu21.ddd.controller.rest;
 
+import com.adu21.ddd.command.CreateCarPolicyCommand;
 import com.adu21.ddd.command.CreateHomePolicyCommand;
 import com.adu21.ddd.model.HomePolicy;
 import com.adu21.ddd.service.PolicyService;
@@ -18,5 +19,11 @@ public class PolicyController {
     @ResponseStatus(HttpStatus.CREATED)
     public void createHomePolicy(@RequestBody CreateHomePolicyCommand createHomePolicyCommand) {
         policyService.apply(createHomePolicyCommand);
+    }
+
+    @PostMapping(value = "/carpolicy")
+    @ResponseStatus(HttpStatus.CREATED)
+    public void createCarPolicy(@RequestBody CreateCarPolicyCommand createCarPolicyCommand) {
+        policyService.apply(createCarPolicyCommand);
     }
 }

@@ -52,4 +52,27 @@ public class BuyPolicyIntegrationTest extends BaseIntegrationTest {
                 .andExpect(status().isCreated());
     }
 
+    @Test
+    public void buyCarPolicySuccess() throws Exception{
+        inputJson = "{\n" +
+                "\t\"ownerEmail\": \"ownerEmail\",\n" +
+                "\t\"carPurchaseDate\": \"2017-10-10\",\n" +
+                "\t\"carBrand\": \"carBrand\",\n" +
+                "\t\"startDate\": \"2019-11-11\",\n" +
+                "\t\"carType\": \"carType\",\n" +
+                "\t\"carParkPlace\": \"carParkPlace\",\n" +
+                "\t\"distancePreYear\": 4000,\n" +
+                "\t\"price\": 1200.01,\n" +
+                "\t\"driverBirthday\": \"1988-02-02\",\n" +
+                "\t\"driverSex\":\"male\",\n" +
+                "\t\"quoteId\": \"quoteId\",\n" +
+                "\t\"holderBirthday\": \"1999-12-12\",\n" +
+                "\t\"holderEmail\": \"holderEmail\",\n" +
+                "\t\"holderId\": \"holderId\"\n" +
+                "}";
+        mockMvc.perform(post("/api/carpolicy")
+                .contentType(APPLICATION_JSON).content(inputJson))
+                .andExpect(status().isCreated());
+    }
+
 }

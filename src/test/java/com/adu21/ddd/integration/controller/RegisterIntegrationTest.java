@@ -36,14 +36,14 @@ public class RegisterIntegrationTest extends BaseIntegrationTest {
         userRepository.save(new User("user", "password", "email"));
         userRepository.save(new User("userWaitingForResetPassword", null, "emailWaitingForResetPassword"));
         HomePolicy homePolicy = new HomePolicy();
-        homePolicy.setPolicyNumber(2);
+        homePolicy.setPolicyNumber(3);
         homePolicy.setOwnerEmail("mailUnregistered");
         homePolicyRepository.save(homePolicy);
     }
 
     @Test
     public void registerSuccess() throws Exception {
-        inputJson = "{\"ownerEmail\":\"mailUnregistered\",\"policyNumber\":\"2\"}";
+        inputJson = "{\"ownerEmail\":\"mailUnregistered\",\"policyNumber\":\"3\"}";
         mockMvc.perform(post("/api/user")
                 .contentType(APPLICATION_JSON).content(inputJson))
                 .andExpect(status().isCreated())
