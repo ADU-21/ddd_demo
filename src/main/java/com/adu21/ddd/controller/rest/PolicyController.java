@@ -2,7 +2,6 @@ package com.adu21.ddd.controller.rest;
 
 import com.adu21.ddd.command.CreateCarPolicyCommand;
 import com.adu21.ddd.command.CreateHomePolicyCommand;
-import com.adu21.ddd.model.HomePolicy;
 import com.adu21.ddd.service.PolicyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

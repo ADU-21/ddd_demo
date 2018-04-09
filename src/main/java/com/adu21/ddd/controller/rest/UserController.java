@@ -5,8 +5,8 @@ import com.adu21.ddd.command.UserRegisterRequestCommand;
 import com.adu21.ddd.command.UserResponseCommand;
 import com.adu21.ddd.exception.EmailExistException;
 import com.adu21.ddd.exception.ErrorInputException;
-import com.adu21.ddd.exception.UserNotExistException;
 import com.adu21.ddd.exception.LoginFailedException;
+import com.adu21.ddd.exception.UserNotExistException;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.service.PolicyService;
 import com.adu21.ddd.service.UserService;
@@ -36,7 +36,7 @@ public class UserController {
     @ApiOperation(value = "POST", notes = "Create user")
     public UserResponseCommand createUser(@RequestBody UserRegisterRequestCommand userRequest) {
         if (!policyService.verifyPolicyNumber(userRequest) || userRequest.getOwnerEmail().equals("") ||
-                userRequest.getPolicyNumber().equals("") ) throw new ErrorInputException();
+                userRequest.getPolicyNumber().equals("")) throw new ErrorInputException();
         if (userService.verifyEmail(userRequest.getOwnerEmail())) throw new EmailExistException();
         User user = userService.createUser(userRequest.getOwnerEmail());
         return userService.saveUser(user);

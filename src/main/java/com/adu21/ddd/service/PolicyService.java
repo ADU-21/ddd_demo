@@ -25,7 +25,8 @@ public class PolicyService {
 
     public boolean verifyPolicyNumber(UserRegisterRequestCommand userRequest) {
         return (homePolicyRepository.existsByPolicyNumber(Integer.valueOf(userRequest.getPolicyNumber())) &&
-                homePolicyRepository.getByPolicyNumber(Integer.valueOf(userRequest.getPolicyNumber())).getOwnerEmail().equals(userRequest.getOwnerEmail()))
+                homePolicyRepository.getByPolicyNumber(Integer.valueOf(userRequest.getPolicyNumber()))
+                        .getOwnerEmail().equals(userRequest.getOwnerEmail()))
                 || userRepository.existsByEmail(userRequest.getOwnerEmail());
     }
 

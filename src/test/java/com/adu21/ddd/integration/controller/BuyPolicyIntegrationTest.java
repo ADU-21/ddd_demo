@@ -2,17 +2,13 @@ package com.adu21.ddd.integration.controller;
 
 import com.adu21.ddd.controller.rest.PolicyController;
 import com.adu21.ddd.integration.BaseIntegrationTest;
-import com.adu21.ddd.model.HomePolicy;
-import com.adu21.ddd.model.User;
 import com.adu21.ddd.repository.HomePolicyRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.TestPropertySource;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
@@ -32,7 +28,7 @@ public class BuyPolicyIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void buyHomePolicySuccess() throws Exception{
+    public void buyHomePolicySuccess() throws Exception {
         inputJson = "{\n" +
                 "\t\"ownerEmail\": \"ownerEmail\",\n" +
                 "\t\"ownerUserName\": \"ownerUserName\",\n" +
@@ -53,7 +49,7 @@ public class BuyPolicyIntegrationTest extends BaseIntegrationTest {
     }
 
     @Test
-    public void buyCarPolicySuccess() throws Exception{
+    public void buyCarPolicySuccess() throws Exception {
         inputJson = "{\n" +
                 "\t\"ownerEmail\": \"ownerEmail\",\n" +
                 "\t\"carPurchaseDate\": \"2017-10-10\",\n" +
