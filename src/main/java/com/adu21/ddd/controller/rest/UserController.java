@@ -1,8 +1,8 @@
 package com.adu21.ddd.controller.rest;
 
-import com.adu21.ddd.contract.UserLoginRequestVO;
-import com.adu21.ddd.contract.UserRegisterRequestVO;
-import com.adu21.ddd.contract.UserResponseVO;
+import com.adu21.ddd.command.UserLoginRequestCommand;
+import com.adu21.ddd.command.UserRegisterRequestCommand;
+import com.adu21.ddd.command.UserResponseCommand;
 import com.adu21.ddd.exception.EmailExistException;
 import com.adu21.ddd.exception.ErrorInputException;
 import com.adu21.ddd.exception.UserNotExistException;
@@ -34,7 +34,7 @@ public class UserController {
     @PostMapping(value = "/user")
     @ResponseStatus(CREATED)
     @ApiOperation(value = "POST", notes = "Create user")
-    public UserResponseVO createUser(@RequestBody UserRegisterRequestVO userRequest) {
+    public UserResponseCommand createUser(@RequestBody UserRegisterRequestCommand userRequest) {
         if (!policyService.verifyPolicyNumber(userRequest) || userRequest.getOwnerEmail().equals("") ||
                 userRequest.getPolicyNumber().equals("") ) throw new ErrorInputException();
         if (userService.verifyEmail(userRequest.getOwnerEmail())) throw new EmailExistException();
@@ -57,8 +57,8 @@ public class UserController {
     @PostMapping(value = "/user/login")
     @ResponseStatus(FOUND)
     @ApiOperation(value = "POST", notes = "User login")
-    public UserResponseVO login(@RequestBody UserLoginRequestVO userLoginRequestVO) {
-        if (!userService.verifyEmailAndPassword(userLoginRequestVO)) throw new LoginFailedException();
-        return new UserResponseVO(userService.findUserByEmail(userLoginRequestVO.getEmail()).getUuid());
+    public UserResponseCommand login(@RequestBody UserLoginRequestCommand userLoginRequestCommand) {
+        if (!userService.verifyEmailAndPassword(userLoginRequestCommand)) throw new LoginFailedException();
+        return new UserResponseCommand(userService.findUserByEmail(userLoginRequestCommand.getEmail()).getUuid());
     }
 }

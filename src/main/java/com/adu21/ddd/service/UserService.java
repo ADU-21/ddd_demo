@@ -1,7 +1,7 @@
 package com.adu21.ddd.service;
 
-import com.adu21.ddd.contract.UserLoginRequestVO;
-import com.adu21.ddd.contract.UserResponseVO;
+import com.adu21.ddd.command.UserLoginRequestCommand;
+import com.adu21.ddd.command.UserResponseCommand;
 import com.adu21.ddd.model.User;
 import com.adu21.ddd.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,14 +35,14 @@ public class UserService {
         return userRepository.findByUuid(uuid);
     }
 
-    public UserResponseVO saveUser(User user) {
+    public UserResponseCommand saveUser(User user) {
         userRepository.save(user);
-        return new UserResponseVO(user.getUuid());
+        return new UserResponseCommand(user.getUuid());
     }
 
-    public boolean verifyEmailAndPassword(UserLoginRequestVO userLoginRequestVO) {
-        User user = userRepository.findByEmail(userLoginRequestVO.getEmail());
-        return user != null && userLoginRequestVO.getPassword().equals(user.getPassWord());
+    public boolean verifyEmailAndPassword(UserLoginRequestCommand userLoginRequestCommand) {
+        User user = userRepository.findByEmail(userLoginRequestCommand.getEmail());
+        return user != null && userLoginRequestCommand.getPassword().equals(user.getPassWord());
     }
 
     public User findUserByEmail(String email) {

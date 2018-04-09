@@ -1,4 +1,4 @@
-package com.adu21.ddd.contract;
+package com.adu21.ddd.command;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApiModel(description = "User register request model")
-public class UserLoginRequestVO {
-    @ApiModelProperty(value = "Password", example = "qweASD123")
-    private String password;
-    @ApiModelProperty(value = "Email", example = "yiddu@thoughtworks.com")
-    private String email;
+public class UserRegisterRequestCommand {
+    @ApiModelProperty(value = "PolicyNumber", example = "123")
+    private String policyNumber;
+    @ApiModelProperty(value = "OwnerEmail", example = "yiddu@thoughtworks.com")
+    private String ownerEmail;
 }
