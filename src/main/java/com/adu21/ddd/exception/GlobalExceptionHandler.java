@@ -2,8 +2,7 @@ package com.adu21.ddd.exception;
 
 import org.springframework.web.bind.annotation.*;
 
-import static org.springframework.http.HttpStatus.FORBIDDEN;
-import static org.springframework.http.HttpStatus.FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @ControllerAdvice(annotations = RestController.class)
 public class GlobalExceptionHandler {
@@ -23,7 +22,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UserNotExistException.class)
-    @ResponseStatus(FORBIDDEN)
+    @ResponseStatus(NOT_FOUND)
     @ResponseBody
     public String handleException(UserNotExistException e) {
         return "Invalid uuid";
@@ -34,6 +33,20 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public String handleException(LoginFailedException e) {
         return "Login failed";
+    }
+
+    @ExceptionHandler(PolicyNotExistException.class)
+    @ResponseStatus(NOT_FOUND)
+    @ResponseBody
+    public String handleException(PolicyNotExistException e) {
+        return "Invalid policyNumber";
+    }
+
+    @ExceptionHandler(InvalidQuotationException.class)
+    @ResponseStatus(BAD_REQUEST)
+    @ResponseBody
+    public String handleException(InvalidQuotationException e) {
+        return "Invalid quotation input";
     }
 
 }
