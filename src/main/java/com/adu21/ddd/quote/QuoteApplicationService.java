@@ -20,7 +20,6 @@ public class QuoteApplicationService {
     private QuoteCalculator quoteCalculator;
 
     public HomePolicyQuotation calculateQuote(EnquiryHomePolicyCommand command) {
-        // TODO: Response re-input is some field is empty
         HomePolicyQuotation homePolicyQuotation = homePolicyQuoteMapper.map(command, HomePolicyQuotation.class);
         homePolicyQuotation.setPremium(quoteCalculator.calculate(homePolicyQuotation));
         return homePolicyQuotation;

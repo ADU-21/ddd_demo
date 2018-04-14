@@ -5,12 +5,14 @@ import com.adu21.ddd.quote.domain.model.Quotation;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 public class EnquiryCarPolicyCommand extends Quotation {
     private String productiveYear;
+    @NotNull
     private String carBrand;
     private String carModel;
     private String parkPlace;

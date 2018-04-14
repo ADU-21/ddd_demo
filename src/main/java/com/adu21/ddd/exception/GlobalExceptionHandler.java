@@ -46,7 +46,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(BAD_REQUEST)
     @ResponseBody
     public String handleException(InvalidQuotationException e) {
-        return "Invalid quotation input";
+        return "Please input information again";
     }
 
 }
