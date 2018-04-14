@@ -12,7 +12,6 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Quotation {
     private String quoteId = UUID.randomUUID().toString();
-    private LocalDate startDate;
     private Double premium;
 
     public Quotation(Double premium) {

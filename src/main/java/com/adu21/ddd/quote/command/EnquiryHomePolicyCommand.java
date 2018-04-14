@@ -12,7 +12,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EnquiryHomePolicyCommand {
-    private LocalDate startDate;
     private String buildingMaterial;
     private String buildingType;
     private String numberOfRooms;
