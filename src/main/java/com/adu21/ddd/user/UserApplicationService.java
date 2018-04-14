@@ -22,17 +22,17 @@ public class UserApplicationService {
     @Autowired
     private RegisterService registerService;
 
-    public String register(CreateUserCommand command) throws RuntimeException {
+    public String register(CreateUserCommand command) {
         return registerService.registration(command.getOwnerEmail(), command.getPolicyNumber());
     }
 
-    public void setPassword(SetPasswordCommand command) throws RuntimeException {
+    public void setPassword(SetPasswordCommand command) {
         User user = userRepository.findByUuid(command.getUuid()).orElseThrow(UserNotExistException::new);
         user.setPassWord(command.getPassWord());
         userRepository.save(user);
     }
 
-    public boolean login(UserLoginCommand command) throws RuntimeException {
+    public boolean login(UserLoginCommand command) {
         return loginService.login(command.getEmail(), command.getPassword());
     }
 }
