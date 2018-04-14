@@ -1,17 +1,16 @@
 package com.adu21.ddd.policy.domain.model;
 
-import com.adu21.ddd.quote.domain.model.Quotation;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.xml.crypto.Data;
+import java.time.LocalDate;
+import java.util.UUID;
 
 @Getter
 @Setter
 public class Policy {
-    protected static final double BASE_PREMIUM = 100.00;
-    private String policyNumber;
-    private Data startDate;
-    private Quotation quotation;
+    private String policyNumber = UUID.randomUUID().toString();
+    private LocalDate startDate;
+    private String quoteId;
     private PolicyHolder policyHolder;
 }

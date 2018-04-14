@@ -5,24 +5,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateHomePolicyCommand {
-    private String policyNumber;
-    private String ownerEmail;
-    private String ownerUserName;
-    private String policyOwnerUuid;
-    private Date startDate;
+    private LocalDate startDate;
     private String buildingMaterial;
     private String buildingType;
-    private int numberOfRooms;
-    private double price;
+    private String numberOfRooms;
     private String quoteId;
-    private Date holderBirthday;
+    private double premium;
+    private LocalDate holderBirthday;
     private String holderEmail;
     private String holderId;
+    private String holderName;
 }
