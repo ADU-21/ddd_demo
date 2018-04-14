@@ -19,9 +19,9 @@ public class PolicyController {
         return policyApplicationService.create(createHomePolicyCommand);
     }
 
-    @PostMapping(value = "/car")
+    @PutMapping(value = "/car")
     @ResponseStatus(HttpStatus.CREATED)
-    public void createCarPolicy(@RequestBody CreateCarPolicyCommand createCarPolicyCommand) {
-        policyApplicationService.apply(createCarPolicyCommand);
+    public String createCarPolicy(@RequestBody CreateCarPolicyCommand createCarPolicyCommand) {
+        return policyApplicationService.create(createCarPolicyCommand);
     }
 }

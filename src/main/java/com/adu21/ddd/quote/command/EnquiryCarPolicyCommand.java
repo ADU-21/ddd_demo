@@ -1,6 +1,6 @@
 package com.adu21.ddd.quote.command;
 
-import com.adu21.ddd.quote.domain.model.Gender;
+import com.adu21.ddd.model.Gender;
 import com.adu21.ddd.quote.domain.model.Quotation;
 import lombok.Getter;
 import lombok.Setter;
