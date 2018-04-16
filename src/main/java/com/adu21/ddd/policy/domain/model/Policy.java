@@ -10,7 +10,7 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED) // this will create 3 tables for 3 classes, does this make sense for AR?
 public class Policy {
     @Id
     private String policyNumber = UUID.randomUUID().toString();
