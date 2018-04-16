@@ -3,7 +3,7 @@ package com.adu21.ddd.user.domain.service;
 import com.adu21.ddd.exception.EmailExistException;
 import com.adu21.ddd.exception.ErrorInputException;
 import com.adu21.ddd.exception.PolicyNotExistException;
-import com.adu21.ddd.policy.domain.model.PolicyEntity;
+import com.adu21.ddd.policy.domain.model.Policy;
 import com.adu21.ddd.policy.repository.PolicyRepository;
 import com.adu21.ddd.user.UserRepository;
 import com.adu21.ddd.user.domain.model.User;
@@ -39,7 +39,7 @@ public class RegisterService {
     }
 
     private boolean isInputValidation(String policyNumber, String email) {
-        PolicyEntity policyEntity = policyRepository.findByPolicyNumber(policyNumber).orElseThrow(PolicyNotExistException::new);
-        return policyEntity.getOwnerEmail().equals(email) || !email.equals("") || !policyNumber.equals("");
+        Policy policy = policyRepository.findByPolicyNumber(policyNumber).orElseThrow(PolicyNotExistException::new);
+        return policy.getPolicyHolder().getEmail().equals(email) && !email.equals("") && !policyNumber.equals("");
     }
 }

@@ -1,14 +1,19 @@
-create table user
+CREATE TABLE USER
 (
-  uuid varchar(255) not null,
-  email varchar(255) not null,
-  pass_word varchar(255),
-  primary key(uuid)
+  UUID      VARCHAR(255) NOT NULL,
+  EMAIL     VARCHAR(255) NOT NULL,
+  PASS_WORD VARCHAR(255),
+  PRIMARY KEY (UUID)
 );
 
-create table policyEntity
+CREATE TABLE POLICY
 (
-  policy_number varchar(255) not null,
-  owner_email varchar(255) not null,
-  primary key(policy_number)
-);
+  POLICY_NUMBER          VARCHAR(255) NOT NULL,
+  POLICY_HOLDER_BIRTHDAY VARCHAR(255),
+  POLICY_HOLDER_EMAIL    VARCHAR(255),
+  POLICY_HOLDER_ID       VARCHAR(255),
+  POLICY_HOLDER_NAME     VARCHAR(255),
+  QUOTE_ID               VARCHAR(255),
+  START_DATE             VARCHAR(255),
+  PRIMARY KEY (POLICY_NUMBER)
+)

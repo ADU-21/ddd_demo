@@ -9,7 +9,8 @@ import java.util.UUID;
 
 @Getter
 @Setter
-@MappedSuperclass
+@Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Policy {
     @Id
     private String policyNumber = UUID.randomUUID().toString();
@@ -20,7 +21,7 @@ public class Policy {
             @AttributeOverride(name = "id", column = @Column(name = "policy_holder_id")),
             @AttributeOverride(name = "name", column = @Column(name = "policy_holder_name")),
             @AttributeOverride(name = "email", column = @Column(name = "policy_holder_email")),
-            @AttributeOverride(name = "birthday", column = @Column(name = "policy_holder_birthday"))
+            @AttributeOverride(name = "birthDay", column = @Column(name = "policy_holder_birthday"))
     })
     private PolicyHolder policyHolder;
 }
