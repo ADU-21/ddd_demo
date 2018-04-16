@@ -1,20 +1,18 @@
-package com.adu21.ddd.quote.domain.model;
+package com.adu21.ddd.quotation.domain.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
+import javax.persistence.*;
 import java.util.UUID;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Quotation {
+@MappedSuperclass
+public abstract class Quotation {
+    @Id
     private String quoteId = UUID.randomUUID().toString();
     private Double premium;
-
-    public Quotation(Double premium) {
-        this.premium = premium;
-    }
 }

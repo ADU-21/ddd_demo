@@ -11,16 +11,16 @@ import com.adu21.ddd.policy.mapper.HomePolicyMapper;
 import com.adu21.ddd.policy.mapper.HomePolicyToQuotationMapper;
 import com.adu21.ddd.policy.repository.CarPolicyRepository;
 import com.adu21.ddd.policy.repository.HomePolicyRepository;
-import com.adu21.ddd.quote.domain.model.CarPolicyQuotation;
-import com.adu21.ddd.quote.domain.model.HomePolicyQuotation;
-import com.adu21.ddd.quote.domain.service.QuoteCalculator;
+import com.adu21.ddd.quotation.domain.model.CarPolicyQuotation;
+import com.adu21.ddd.quotation.domain.model.HomePolicyQuotation;
+import com.adu21.ddd.quotation.domain.service.QuoteCalculator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PolicyFactoryService {
 
-    // This needs quote AR to calculate, dose that make sense？
+    // This needs quotation AR to calculate, dose that make sense？
     @Autowired
     private QuoteCalculator quoteCalculator;
 
