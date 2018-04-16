@@ -14,6 +14,8 @@ import com.adu21.ddd.policy.repository.HomePolicyRepository;
 import com.adu21.ddd.quotation.domain.model.CarPolicyQuotation;
 import com.adu21.ddd.quotation.domain.model.HomePolicyQuotation;
 import com.adu21.ddd.quotation.domain.service.QuoteCalculator;
+import com.adu21.ddd.quotation.repository.CarPolicyQuotationRepository;
+import com.adu21.ddd.quotation.repository.HomePolicyQuotationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,9 +32,15 @@ public class PolicyFactoryService {
     private HomePolicyToQuotationMapper homePolicyToQuotationMapper = new HomePolicyToQuotationMapper();
 
     @Autowired
+    private HomePolicyQuotationRepository homePolicyQuotationRepository;
+
+    @Autowired
     private CarPolicyRepository carPolicyRepository;
     private CarPolicyMapper carPolicyMapper = new CarPolicyMapper();
     private CarPolicyToQuotationMapper carPolicyToQuotationMapper = new CarPolicyToQuotationMapper();
+
+    @Autowired
+    private CarPolicyQuotationRepository carPolicyQuotationRepository;
 
     public String createPolicy(CreateHomePolicyCommand command) {
         HomePolicy homePolicy = homePolicyMapper.map(command, HomePolicy.class);
@@ -51,12 +59,23 @@ public class PolicyFactoryService {
     }
 
     private void checkPolicyPremium(HomePolicyQuotation homePolicyQuotation) {
-        if (!homePolicyQuotation.getPremium().equals(quoteCalculator.calculate(homePolicyQuotation)))
+        HomePolicyQuotation homePolicyQuotationInStore = homePolicyQuotationRepository.findByQuoteId(homePolicyQuotation.getQuoteId())
+                .orElseThrow(InvalidQuotationException::new);
+        Double premiumFromRequest = homePolicyQuotation.getPremium();
+        Double premiumFromCalculate = quoteCalculator.calculate(homePolicyQuotation);
+        Double premiumFromStore = homePolicyQuotationInStore.getPremium();
+        // this way seems not so good...
+        if (!(premiumFromRequest.equals(premiumFromCalculate) && premiumFromRequest.equals(premiumFromStore)))
             throw new InvalidQuotationException();
     }
 
     private void checkPolicyPremium(CarPolicyQuotation carPolicyQuotation) {
-        if (!carPolicyQuotation.getPremium().equals(quoteCalculator.calculate(carPolicyQuotation)))
+        CarPolicyQuotation carPolicyQuotationInStore = carPolicyQuotationRepository.findByQuoteId(carPolicyQuotation.getQuoteId())
+                .orElseThrow(InvalidQuotationException::new);
+        Double premiumFromRequest = carPolicyQuotation.getPremium();
+        Double premiumFromCalculate = quoteCalculator.calculate(carPolicyQuotation);
+        Double premiumFromStore = carPolicyQuotationInStore.getPremium();
+        if (!(premiumFromRequest.equals(premiumFromCalculate) && premiumFromRequest.equals(premiumFromStore)))
             throw new InvalidQuotationException();
     }
 }

@@ -13,9 +13,6 @@ public class PolicyApplicationService {
     @Autowired
     private PolicyFactoryService policyFactoryService;
 
-    @Autowired
-    private CarPolicyRepository carPolicyRepository;
-
     public String create(CreateHomePolicyCommand command) {
         return policyFactoryService.createPolicy(command);
     }
