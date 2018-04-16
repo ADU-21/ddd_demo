@@ -1,14 +1,13 @@
 package com.adu21.ddd.policy.domain.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.Entity;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
+@Entity
 public class HomePolicy extends Policy {
     private String buildingMaterial;
     private String buildingType;
