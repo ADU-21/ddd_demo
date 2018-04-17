@@ -7,11 +7,13 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @Entity
+@Table(name = "CAR_POLICY_QUOTATION")
 public class CarPolicyQuotation extends Quotation {
     private String productiveYear;
     private String carBrand;

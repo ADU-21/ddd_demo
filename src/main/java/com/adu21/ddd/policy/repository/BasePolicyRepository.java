@@ -8,6 +8,6 @@ import java.util.Optional;
 
 
 @NoRepositoryBean
-public interface PolicyBaseRepository<T extends Policy> extends CrudRepository<T, Long> {
+public interface BasePolicyRepository<T extends Policy> extends CrudRepository<T, Long> {
     Optional<T> findByPolicyNumber(String PolicyNumber);
 }

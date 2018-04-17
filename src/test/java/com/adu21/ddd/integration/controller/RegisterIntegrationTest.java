@@ -1,6 +1,6 @@
 //package com.adu21.ddd.integration.controller;
 //
-//import com.adu21.ddd.policy.domain.model.PolicyEntity;
+//import com.adu21.ddd.policy.domain.model.Policy;
 //import com.adu21.ddd.user.UserController;
 //import com.adu21.ddd.integration.BaseIntegrationTest;
 //import com.adu21.ddd.user.domain.model.User;
@@ -35,7 +35,7 @@
 //        mockMvc = standaloneSetup(userController).build();
 //        userRepository.save(new User("user", "password", "email"));
 //        userRepository.save(new User("userWaitingForResetPassword", null, "emailWaitingForResetPassword"));
-//        policyRepository.save(new PolicyEntity("policyWaitingForRegistered","emailWaitingForRegistered"));
+//        policyRepository.save(new Policy("policyWaitingForRegistered","emailWaitingForRegistered"));
 //    }
 //
 //    @Test
