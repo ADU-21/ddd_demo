@@ -42,20 +42,20 @@ public class PolicyFactoryService {
     @Autowired
     private CarPolicyQuotationRepository carPolicyQuotationRepository;
 
-    public String createPolicy(CreateHomePolicyCommand command) {
+    public HomePolicy createPolicy(CreateHomePolicyCommand command) {
         HomePolicy homePolicy = homePolicyMapper.map(command, HomePolicy.class);
         HomePolicyQuotation homePolicyQuotation = homePolicyToQuotationMapper.map(command, HomePolicyQuotation.class);
         checkPolicyPremium(homePolicyQuotation);
         homePolicyRepository.save(homePolicy);
-        return homePolicy.getPolicyNumber();
+        return homePolicy;
     }
 
-    public String createPolicy(CreateCarPolicyCommand command) {
+    public CarPolicy createPolicy(CreateCarPolicyCommand command) {
         CarPolicy carPolicy = carPolicyMapper.map(command, CarPolicy.class);
         CarPolicyQuotation carPolicyQuotation = carPolicyToQuotationMapper.map(command, CarPolicyQuotation.class);
         checkPolicyPremium(carPolicyQuotation);
         carPolicyRepository.save(carPolicy);
-        return carPolicy.getPolicyNumber();
+        return carPolicy;
     }
 
     private void checkPolicyPremium(HomePolicyQuotation homePolicyQuotation) {
