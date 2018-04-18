@@ -17,7 +17,7 @@ public class PolicyController {
 
     @PutMapping(value = "/home")
     @ResponseStatus(HttpStatus.CREATED)
-    public String createHomePolicy(@RequestBody CreateHomePolicyCommand command) {
+    public String createHomePolicy(@RequestBody @Valid CreateHomePolicyCommand command) {
         return policyApplicationService.createPolicy(command);
     }
 
