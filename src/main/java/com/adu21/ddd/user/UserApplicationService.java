@@ -1,7 +1,7 @@
 package com.adu21.ddd.user;
 
 import com.adu21.ddd.exception.UserNotExistException;
-import com.adu21.ddd.user.command.CreateUserCommand;
+import com.adu21.ddd.user.command.RegistrationCommand;
 import com.adu21.ddd.user.command.SetPasswordCommand;
 import com.adu21.ddd.user.command.UserLoginCommand;
 import com.adu21.ddd.user.domain.model.User;
@@ -25,21 +25,22 @@ public class UserApplicationService {
     @Autowired
     private RegisterService registerService;
 
-    public String register(CreateUserCommand command) {
+    public String register(RegistrationCommand command) {
+        User user = registerService.createUser(command.getOwnerEmail(), command.getPolicyNumber());
         logger.info("Create user with email [{}]", command.getOwnerEmail());
-        return registerService.registration(command.getOwnerEmail(), command.getPolicyNumber());
+        return user.getUuid();
     }
 
-    public void setPassword(SetPasswordCommand command) {
-        logger.info("Set password with uuid [{}]", command.getUuid());
+    public void initialPassword(SetPasswordCommand command) {
         User user = userRepository.findByUuid(command.getUuid()).orElseThrow(UserNotExistException::new);
-        user.setPassWord(command.getPassWord());
-        logger.info("Set password success with uuid[{}]", command.getUuid());
+        user.setPassWord(command.getPassword());
+        logger.info("Set password with uuid[{}]", command.getUuid());
         userRepository.save(user);
     }
 
     public boolean login(UserLoginCommand command) {
+        boolean loginSuccess = loginService.login(command.getEmail(), command.getPassword());
         logger.info("User login with email [{}]", command.getEmail());
-        return loginService.login(command.getEmail(), command.getPassword());
+        return loginSuccess;
     }
 }

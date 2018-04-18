@@ -21,6 +21,7 @@ public class PolicyApplicationService {
 
     public String create(CreateHomePolicyCommand command) {
         logger.info("Create home policy with quote id [{}]", command.getQuoteId());
+        //TODO: use DTO instead of command.
         HomePolicy homePolicy = policyFactoryService.createPolicy(command);
         logger.info("Create home policy [{}] success", homePolicy.getPolicyNumber());
         return homePolicy.getPolicyNumber();

@@ -1,6 +1,6 @@
 package com.adu21.ddd.policy.domain.model;
 
-import com.adu21.ddd.model.Gender;
+import com.adu21.ddd.common.Gender;
 import lombok.Getter;
 import lombok.Setter;
 

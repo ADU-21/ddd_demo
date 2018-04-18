@@ -22,7 +22,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class PolicyFactoryService {
 
-    // This needs quotation AR to calculate, dose that make sense？
     @Autowired
     private QuoteCalculator quoteCalculator;
 
@@ -64,7 +63,7 @@ public class PolicyFactoryService {
         Double premiumFromRequest = homePolicyQuotation.getPremium();
         Double premiumFromCalculate = quoteCalculator.calculate(homePolicyQuotation);
         Double premiumFromStore = homePolicyQuotationInStore.getPremium();
-        // this way seems not so good...
+        //TODO: Refactor the command
         if (!(premiumFromRequest.equals(premiumFromCalculate) && premiumFromRequest.equals(premiumFromStore)))
             throw new InvalidQuotationException();
     }

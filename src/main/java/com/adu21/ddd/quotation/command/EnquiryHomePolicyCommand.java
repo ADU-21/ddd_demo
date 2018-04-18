@@ -1,16 +1,20 @@
 package com.adu21.ddd.quotation.command;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-@Builder
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+import javax.validation.constraints.NotBlank;
+
+@Getter
+@Setter
 public class EnquiryHomePolicyCommand {
+
+    @NotBlank(message = "buildingMaterial can not be empty")
     private String buildingMaterial;
+
+    @NotBlank(message = "buildingType can not be empty")
     private String buildingType;
+
+    @NotBlank(message = "numberOfRooms can not be empty")
     private String numberOfRooms;
 }

@@ -4,9 +4,7 @@ import com.adu21.ddd.quotation.command.EnquiryCarPolicyCommand;
 import com.adu21.ddd.quotation.command.EnquiryHomePolicyCommand;
 import com.adu21.ddd.quotation.domain.model.CarPolicyQuotation;
 import com.adu21.ddd.quotation.domain.model.HomePolicyQuotation;
-import com.adu21.ddd.quotation.domain.service.QuoteCalculator;
-import com.adu21.ddd.quotation.mapper.CarPolicyQuotationMapper;
-import com.adu21.ddd.quotation.mapper.HomePolicyQuotationMapper;
+import com.adu21.ddd.quotation.domain.service.QuoteService;
 import com.adu21.ddd.quotation.repository.CarPolicyQuotationRepository;
 import com.adu21.ddd.quotation.repository.HomePolicyQuotationRepository;
 import org.slf4j.Logger;
@@ -18,11 +16,9 @@ import org.springframework.stereotype.Service;
 public class QuotationApplicationService {
 
     private static Logger logger = LoggerFactory.getLogger(QuotationApplicationService.class);
-    private HomePolicyQuotationMapper homePolicyQuotationMapper = new HomePolicyQuotationMapper();
-    private CarPolicyQuotationMapper carPolicyQuotationMapper = new CarPolicyQuotationMapper();
 
     @Autowired
-    private QuoteCalculator quoteCalculator;
+    private QuoteService quoteService;
 
     @Autowired
     private HomePolicyQuotationRepository homePolicyQuotationRepository;
@@ -31,18 +27,15 @@ public class QuotationApplicationService {
     private CarPolicyQuotationRepository carPolicyQuotationRepository;
 
     public HomePolicyQuotation calculateQuote(EnquiryHomePolicyCommand command) {
-        HomePolicyQuotation homePolicyQuotation = homePolicyQuotationMapper.map(command, HomePolicyQuotation.class);
+        HomePolicyQuotation homePolicyQuotation = quoteService.createQuotation(command);
         logger.info("Calculate home quote: [{}]", homePolicyQuotation.getQuoteId());
-        homePolicyQuotation.setPremium(quoteCalculator.calculate(homePolicyQuotation));
-//        homePolicyQuotation.calculateQuote();
         homePolicyQuotationRepository.save(homePolicyQuotation);
         return homePolicyQuotation;
     }
 
     public CarPolicyQuotation calculateQuote(EnquiryCarPolicyCommand command) {
-        CarPolicyQuotation carPolicyQuotation = carPolicyQuotationMapper.map(command, CarPolicyQuotation.class);
+        CarPolicyQuotation carPolicyQuotation = quoteService.createQuotation(command);
         logger.info("Calculate car quote: [{}]", carPolicyQuotation.getQuoteId());
-        carPolicyQuotation.setPremium(quoteCalculator.calculate(carPolicyQuotation));
         carPolicyQuotationRepository.save(carPolicyQuotation);
         return carPolicyQuotation;
     }

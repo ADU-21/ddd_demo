@@ -1,4 +1,4 @@
-package com.adu21.ddd.model;
+package com.adu21.ddd.common;
 
 public enum Gender {
     MALE,

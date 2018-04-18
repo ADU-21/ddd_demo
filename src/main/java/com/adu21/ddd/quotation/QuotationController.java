@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/api/quote")
 public class QuotationController {
@@ -17,13 +19,13 @@ public class QuotationController {
 
     @PostMapping(value = "/home")
     @ResponseStatus(HttpStatus.CREATED)
-    public HomePolicyQuotation enquiryHomePolicy(@RequestBody EnquiryHomePolicyCommand enquiryHomePolicyCommand) {
-        return quotationApplicationService.calculateQuote(enquiryHomePolicyCommand);
+    public HomePolicyQuotation enquiryHomePolicy(@RequestBody @Valid EnquiryHomePolicyCommand command) {
+        return quotationApplicationService.calculateQuote(command);
     }
 
     @PostMapping(value = "/car")
     @ResponseStatus(HttpStatus.CREATED)
-    public CarPolicyQuotation enquiryHomePolicy(@RequestBody EnquiryCarPolicyCommand enquiryCarPolicyCommand) {
-        return quotationApplicationService.calculateQuote(enquiryCarPolicyCommand);
+    public CarPolicyQuotation enquiryHomePolicy(@RequestBody @Valid EnquiryCarPolicyCommand command) {
+        return quotationApplicationService.calculateQuote(command);
     }
 }

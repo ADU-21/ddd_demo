@@ -1,6 +1,6 @@
 package com.adu21.ddd.policy.mapper;
 
-import com.adu21.ddd.mapper.BaseMapper;
+import com.adu21.ddd.common.BaseMapper;
 import com.adu21.ddd.policy.command.CreateHomePolicyCommand;
 import com.adu21.ddd.quotation.domain.model.HomePolicyQuotation;
 

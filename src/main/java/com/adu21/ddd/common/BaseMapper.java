@@ -1,4 +1,4 @@
-package com.adu21.ddd.mapper;
+package com.adu21.ddd.common;
 
 import ma.glasnost.orika.MapperFactory;
 import ma.glasnost.orika.impl.DefaultMapperFactory;

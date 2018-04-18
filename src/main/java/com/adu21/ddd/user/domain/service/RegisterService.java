@@ -25,13 +25,14 @@ public class RegisterService {
     @Autowired
     EmailManager emailManager;
 
-    public String registration(String email, String policyNumber) {
+    public User createUser(String email, String policyNumber) {
         if (!isInputValidation(policyNumber, email)) throw new ErrorInputException();
         if (isEmailExist(email)) throw new EmailExistException();
         String uuid = UUID.randomUUID().toString();
-        userRepository.save(new User(uuid, null, email));
+        User user = new User(uuid, null, email);
+        userRepository.save(user);
         emailManager.sendEmail(uuid);
-        return uuid;
+        return user;
     }
 
     private boolean isEmailExist(String email) {

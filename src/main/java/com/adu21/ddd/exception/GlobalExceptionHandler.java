@@ -1,6 +1,11 @@
 package com.adu21.ddd.exception;
 
+import com.fasterxml.jackson.databind.exc.InvalidFormatException;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -25,7 +30,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(NOT_FOUND)
     @ResponseBody
     public String handleException(UserNotExistException e) {
-        return "Invalid uuid";
+        return "User not exist";
     }
 
     @ExceptionHandler(LoginFailedException.class)
@@ -49,4 +54,19 @@ public class GlobalExceptionHandler {
         return "Please input information again";
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    @ResponseStatus(BAD_REQUEST)
+    @ResponseBody
+    public String handleException(MethodArgumentNotValidException e) {
+        return e.getBindingResult().getFieldErrors().stream()
+                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .collect(Collectors.joining(" | "));
+    }
+
+    @ExceptionHandler(InvalidFormatException.class)
+    @ResponseStatus(BAD_REQUEST)
+    @ResponseBody
+    public String handleException(InvalidFormatException e) {
+        return "Invalid input format";
+    }
 }

@@ -1,6 +1,6 @@
 package com.adu21.ddd.policy.command;
 
-import com.adu21.ddd.model.Gender;
+import com.adu21.ddd.common.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CreateCarPolicyCommand {
+    //TODO: simplify this class with only policy should care about: like holder information
     private LocalDate startDate;
     private String productiveYear;
     private String carBrand;
