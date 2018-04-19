@@ -12,7 +12,7 @@ import javax.validation.constraints.NotBlank;
 public class SetPasswordCommand {
 
     @NotBlank(message = "uuid can not be empty")
-    @ApiModelProperty(value = "Uuid", example = "5007ce96-6507-43a8-86d3-d9a448271c09")
+    @ApiModelProperty(value = "Uuid", example = "2")
     private String uuid;
 
     @NotBlank(message = "password can not be empty")

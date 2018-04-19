@@ -16,6 +16,6 @@ public class UserLoginCommand {
     private String email;
 
     @NotBlank(message = "password can not be empty")
-    @ApiModelProperty(value = "password", example = "123")
+    @ApiModelProperty(value = "password", example = "password")
     private String password;
 }

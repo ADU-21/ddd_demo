@@ -25,7 +25,7 @@ public class UserController {
     @CrossOrigin
     @PutMapping(value = "/register")
     @ResponseStatus(CREATED)
-    @ApiOperation(value = "POST", notes = "Register")
+    @ApiOperation(value = "POST", notes = "Registration")
     public String register(@RequestBody @Valid RegistrationCommand command) {
         return userApplicationService.register(command);
     }

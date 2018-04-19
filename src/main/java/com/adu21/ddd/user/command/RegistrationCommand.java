@@ -13,10 +13,10 @@ import javax.validation.constraints.NotBlank;
 public class RegistrationCommand {
 
     @NotBlank(message = "policyNumber Can not be empty")
-    @ApiModelProperty(value = "PolicyNumber", example = "123")
+    @ApiModelProperty(value = "PolicyNumber", example = "policy1")
     private String policyNumber;
 
     @NotBlank(message = "ownerEmail Can not be empty")
-    @ApiModelProperty(value = "OwnerEmail", example = "yiddu@thoughtworks.com")
+    @ApiModelProperty(value = "OwnerEmail", example = "email1")
     private String ownerEmail;
 }
