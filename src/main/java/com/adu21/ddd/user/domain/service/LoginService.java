@@ -12,8 +12,8 @@ public class LoginService {
     @Autowired
     UserRepository userRepository;
 
-    public boolean login(String email, String passWord) {
+    public boolean login(String email, String password) {
         User user = userRepository.findByEmail(email).orElseThrow(UserNotExistException::new);
-        return user.isPassWordCorrect(passWord);
+        return user.isPassWordCorrect(password);
     }
 }
