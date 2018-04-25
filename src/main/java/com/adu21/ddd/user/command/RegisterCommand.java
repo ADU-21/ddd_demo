@@ -10,7 +10,7 @@ import javax.validation.constraints.NotBlank;
 @Getter
 @Setter
 @ApiModel(description = "User register request model")
-public class RegistrationCommand {
+public class RegisterCommand {
 
     @NotBlank(message = "policyNumber Can not be empty")
     @ApiModelProperty(value = "PolicyNumber", example = "policy1")

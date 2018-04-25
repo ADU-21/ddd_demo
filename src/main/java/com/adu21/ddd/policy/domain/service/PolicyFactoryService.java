@@ -1,6 +1,6 @@
 package com.adu21.ddd.policy.domain.service;
 
-import com.adu21.ddd.exception.InvalidQuotationException;
+import com.adu21.ddd.quotation.exception.InvalidQuotationException;
 import com.adu21.ddd.policy.command.CreateCarPolicyCommand;
 import com.adu21.ddd.policy.command.CreateHomePolicyCommand;
 import com.adu21.ddd.policy.domain.model.CarPolicy;

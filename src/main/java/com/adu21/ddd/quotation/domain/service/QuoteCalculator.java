@@ -1,6 +1,6 @@
 package com.adu21.ddd.quotation.domain.service;
 
-import com.adu21.ddd.exception.InvalidQuotationException;
+import com.adu21.ddd.quotation.exception.InvalidQuotationException;
 import com.adu21.ddd.quotation.domain.model.CarPolicyQuotation;
 import com.adu21.ddd.quotation.domain.model.HomePolicyQuotation;
 import org.springframework.stereotype.Service;

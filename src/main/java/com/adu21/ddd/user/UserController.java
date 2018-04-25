@@ -1,7 +1,7 @@
 package com.adu21.ddd.user;
 
-import com.adu21.ddd.exception.LoginFailedException;
-import com.adu21.ddd.user.command.RegistrationCommand;
+import com.adu21.ddd.user.exception.LoginFailedException;
+import com.adu21.ddd.user.command.RegisterCommand;
 import com.adu21.ddd.user.command.SetPasswordCommand;
 import com.adu21.ddd.user.command.UserLoginCommand;
 import io.swagger.annotations.Api;
@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -26,7 +25,7 @@ public class UserController {
     @PutMapping(value = "/register")
     @ResponseStatus(CREATED)
     @ApiOperation(value = "POST", notes = "Registration")
-    public String register(@RequestBody @Valid RegistrationCommand command) {
+    public String register(@RequestBody @Valid RegisterCommand command) {
         return userApplicationService.register(command);
     }
 

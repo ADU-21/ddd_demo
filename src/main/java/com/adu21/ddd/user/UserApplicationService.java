@@ -1,7 +1,7 @@
 package com.adu21.ddd.user;
 
-import com.adu21.ddd.exception.UserNotExistException;
-import com.adu21.ddd.user.command.RegistrationCommand;
+import com.adu21.ddd.user.exception.UserNotExistException;
+import com.adu21.ddd.user.command.RegisterCommand;
 import com.adu21.ddd.user.command.SetPasswordCommand;
 import com.adu21.ddd.user.command.UserLoginCommand;
 import com.adu21.ddd.user.domain.model.User;
@@ -25,7 +25,7 @@ public class UserApplicationService {
     @Autowired
     private RegisterService registerService;
 
-    public String register(RegistrationCommand command) {
+    public String register(RegisterCommand command) {
         User user = registerService.createUser(command.getOwnerEmail(), command.getPolicyNumber());
         logger.info("Create user with email [{}]", command.getOwnerEmail());
         return user.getUuid();
